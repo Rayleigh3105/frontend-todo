@@ -10,6 +10,9 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
   declarations: [
     TodoListComponent,
     TodoItemComponent
+  ],
+  exports: [
+    TodoListComponent
   ]
 })
 export class TodoModule { }
