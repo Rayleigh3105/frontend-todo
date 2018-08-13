@@ -1,0 +1,10 @@
+<!-- HEADER -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" href="#">Todo - App</a>
+  <form class="form-inline my-2 my-lg-0">
+    <input #todoText class="form-control mr-sm-2" placeholder="Create new Todo" type="text" aria-label="Create new Todo">
+    <button class="btn my-2 my-sm-0 mv-button-create" (click)="createTodo(todoText.value)">
+      <i class="material-icons">create</i>
+    </button>
+  </form>
+</nav>
