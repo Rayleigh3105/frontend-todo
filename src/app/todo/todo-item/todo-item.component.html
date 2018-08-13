@@ -1,3 +1,23 @@
-<div *ngFor="let todo of $todo.todos$ | async">
-  {{ todo.text }}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" href="#">Todo - App</a>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" placeholder="Create new Todo" aria-label="Create new Todo">
+      <button class="btn my-2 my-sm-0 mv-button-create" type="submit">
+        <i class="material-icons">create</i>
+      </button>
+    </form>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <div *ngFor="let todo of $todo.todos$ | async">
+        {{ todo.text }}
+
+        <button (click)="deleteTodo( todo )">X</button>
+      </div>
+    </div>
+  </div>
 </div>
+

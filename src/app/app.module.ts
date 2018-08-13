@@ -6,19 +6,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {TodoModule} from './todo/todo.module';
-import {TodoService} from './todo/todo.service';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TodoModule
-  ],
+    TodoModule,
+],
   providers: [],
   bootstrap: [AppComponent]
 })
