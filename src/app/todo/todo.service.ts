@@ -24,8 +24,8 @@ export class TodoService {
   }
 
   // Deletes Todos by ID
-  deleteTodoById( todo : Todo): Observable<any> {
-    return this.$http.delete<any>( `${this.todoEndPoint}/${todo._id}`)
+  deleteTodoById( todo : Todo): Observable<Todo> {
+    return this.$http.delete<Todo>( `${this.todoEndPoint}/${todo._id}`)
       .pipe(
         tap( () => {
           const todoList = [ ... this.todos$.getValue() ]
@@ -36,5 +36,17 @@ export class TodoService {
           this.todos$.next( todoList );
         })
       )
+  }
+
+  // Creates Todo
+  createTodo( todo : Todo ): Observable<Todo> {
+    return this.$http.post<Todo>( this.todoEndPoint, todo )
+      .pipe(
+        tap( () => {
+          const todoList = [ ... this.todos$.getValue() ]
+          this.todos$.next( [ ... todoList, todo ])
+
+        })
+      );
   }
 }

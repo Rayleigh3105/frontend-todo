@@ -5,6 +5,8 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import {HttpClientModule} from '@angular/common/http';
 import {TodoService} from './todo.service';
 import {MatButtonModule, MatIconModule} from '@angular/material';
+import { TodoHeaderComponent } from './todo-header/todo-header.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -12,10 +14,12 @@ import {MatButtonModule, MatIconModule} from '@angular/material';
     HttpClientModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule
   ],
   declarations: [
     TodoListComponent,
     TodoItemComponent,
+    TodoHeaderComponent,
   ],
   exports: [
     TodoListComponent
