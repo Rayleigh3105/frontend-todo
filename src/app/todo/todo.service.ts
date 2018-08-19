@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {environment} from '../../environments/environment';
@@ -43,9 +44,9 @@ export class TodoService {
     return this.$http.post<Todo>( this.todoEndPoint, todo )
       .pipe(
         tap( () => {
-          const todoList = [ ... this.todos$.getValue() ]
-          this.todos$.next( [ ... todoList, todo ])
-
+          const todoList = [ ... this.todos$.getValue() ];
+          this.todos$.next( [ ... todoList, todo ]);
+          this.getAllTodos();
         })
       );
   }

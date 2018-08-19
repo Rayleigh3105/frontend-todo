@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TodoService} from '../todo.service';
 import {Todo} from '../todo';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-todo-header',
@@ -13,13 +14,15 @@ export class TodoHeaderComponent implements OnInit {
 
   constructor( private $todo: TodoService ) { }
 
-  createTodo( todoText : String ) {
+  createTodo( todoText : any ) {
+
     this.todoToCreate = {
-      text: todoText
+      text: todoText.value
     };
+
+    todoText.value = '';
     this.$todo.createTodo( this.todoToCreate ).subscribe();
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

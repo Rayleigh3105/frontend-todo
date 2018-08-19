@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {TodoModule} from './todo/todo.module';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 
@@ -18,6 +19,8 @@ import {TodoModule} from './todo/todo.module';
     BrowserModule,
     AppRoutingModule,
     TodoModule,
+      BrowserAnimationsModule,
+
 ],
   providers: [],
   bootstrap: [AppComponent]

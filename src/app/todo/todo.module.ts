@@ -4,7 +4,14 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import {HttpClientModule} from '@angular/common/http';
 import {TodoService} from './todo.service';
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import {
+    MatButtonModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatListModule,
+    MatSliderModule
+} from '@angular/material';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
 import {FormsModule} from '@angular/forms';
 
@@ -14,7 +21,12 @@ import {FormsModule} from '@angular/forms';
     HttpClientModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+      MatListModule,
+      MatSliderModule
+
+
+
   ],
   declarations: [
     TodoListComponent,
