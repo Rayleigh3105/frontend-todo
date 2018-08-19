@@ -5,12 +5,11 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import {HttpClientModule} from '@angular/common/http';
 import {TodoService} from './todo.service';
 import {
-    MatButtonModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatListModule,
-    MatSliderModule
+  MatButtonModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatListModule,
+  MatSliderModule
 } from '@angular/material';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
 import {FormsModule} from '@angular/forms';
@@ -22,11 +21,9 @@ import {FormsModule} from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-      MatListModule,
-      MatSliderModule
-
-
-
+    MatListModule,
+    MatSliderModule,
+    MatCheckboxModule
   ],
   declarations: [
     TodoListComponent,

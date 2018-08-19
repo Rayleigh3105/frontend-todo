@@ -1,0 +1,25 @@
+:host {
+  --checkBoxBorderColor: grey;
+  .todoBox {
+    width: 100%;
+    height: 45px;
+    border-radius: 25px;
+    border: 2px solid var(--checkBoxBorderColor);
+    margin-bottom: 20px;
+    float: left;
+    padding-left: 15px;
+  }
+
+  .todo-list-margin-top {
+    margin-top: 20px;
+  }
+
+  ::ng-deep .mat-checkbox .mat-checkbox-frame {
+    border-color: var(--checkBoxBorderColor);
+  }
+
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #28A745 !important;
+  }
+
+}

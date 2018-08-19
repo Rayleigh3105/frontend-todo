@@ -1,24 +1,46 @@
 <app-todo-header></app-todo-header>
 <!--<div class="container-fluid">-->
-  <!--<div class="row">-->
-    <!--<div class="col-md-4">-->
-      <!--<div *ngFor="let todo of $todo.todos$ | async">-->
-        <!--{{ todo.text }}-->
-        <!--<button (click)="deleteTodo( todo )">X</button>-->
-      <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-1"></div>-->
+        <!--<div class="col-md-10">-->
+            <!--<mat-selection-list>-->
+                <!--<mat-list-option *ngFor="let todo of $todo.todos$ | async">-->
+                    <!--{{todo.text}}-->
+                <!--</mat-list-option>-->
+            <!--</mat-selection-list>-->
+        <!--</div>-->
+        <!--<div class="col-md-1"></div>-->
     <!--</div>-->
-  <!--</div>-->
 <!--</div>-->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <mat-selection-list>
-                <mat-list-option *ngFor="let todo of $todo.todos$ | async">
-                    {{todo.text}}
-                </mat-list-option>
-            </mat-selection-list>
+
+<div class="container-fluid todo-list-margin-top">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div *ngFor="let todo of $todo.todos$ | async">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row todoBox">
+              <div class="col-md-8">
+                <div>
+                  {{ todo.text }}
+                </div>
+              </div>
+              <div class="col-md-1">
+                <mat-checkbox [(ngModel)]="todo.completed"></mat-checkbox>
+              </div>
+              <div class="col-md-1">
+                <mat-icon>delete_forever</mat-icon>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div class="col-md-1"></div>
+      </div>
     </div>
+    <div class="col-md-2"></div>
+  </div>
 </div>
+
+
+

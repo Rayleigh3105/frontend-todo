@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TodoService} from '../todo.service';
 import {Todo} from '../todo';
-import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-todo-header',
