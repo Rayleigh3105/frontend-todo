@@ -13,6 +13,7 @@ import {
 } from '@angular/material';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
 import {FormsModule} from '@angular/forms';
+import {UserLoginService} from "../login/user-login.service";
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {FormsModule} from '@angular/forms';
     TodoListComponent
   ]
   ,providers: [
-    TodoService
+    TodoService,
+    UserLoginService
   ],
 })
 export class TodoModule { }

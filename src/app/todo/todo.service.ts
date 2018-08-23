@@ -3,12 +3,20 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {environment} from '../../environments/environment';
 import {Todo} from './todo';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {tap} from 'rxjs/operators';
 
 @Injectable()
 export class TodoService {
+
+   headers = {
+      'x-auth': localStorage.getItem('x-auth')
+    };
+
+   requestOptions = {
+      headers: new HttpHeaders(this.headers)
+    };
 
   todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>( [] ) ;
 
@@ -18,7 +26,7 @@ export class TodoService {
 
   // Get´s all Todos
   getAllTodos(): Observable<Todo[]>{
-    return this.$http.get<Todo[]>( this.todoEndPoint )
+      return this.$http.get<Todo[]>( this.todoEndPoint, this.requestOptions )
       .pipe(
         tap( val => this.todos$.next( val ))
       )
@@ -41,7 +49,7 @@ export class TodoService {
 
   // Creates Todo
   createTodo( todo : Todo ): Observable<Todo> {
-    return this.$http.post<Todo>( this.todoEndPoint, todo )
+    return this.$http.post<Todo>( this.todoEndPoint, todo, this.requestOptions )
       .pipe(
         tap( () => {
           const todoList = [ ... this.todos$.getValue() ];
