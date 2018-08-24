@@ -11,7 +11,7 @@ import {tap} from 'rxjs/operators';
 export class TodoService {
 
    headers = {
-      'x-auth': localStorage.getItem('x-auth')
+      'x-auth': sessionStorage.getItem('x-auth')
     };
 
    requestOptions = {

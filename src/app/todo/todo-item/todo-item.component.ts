@@ -10,7 +10,9 @@ import {Todo} from '../todo';
 export class TodoItemComponent implements OnInit {
 
   constructor( public $todo: TodoService ) {
-    $todo.getAllTodos().subscribe();
+      setTimeout(function() {
+          $todo.getAllTodos().subscribe();
+      }, 1000);
   }
 
   deleteTodo( todo : Todo ) {
