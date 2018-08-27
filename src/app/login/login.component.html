@@ -1,28 +1,35 @@
-<div class="container">
-    <div class="row margin-top">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <mat-tab-group>
-                <mat-tab label="SignIn">
-                    <form class="form-inline my-2 my-lg-0 " [formGroup]="formControl" #form="ngForm" (ngSubmit)="createUser()">
-                        <input formControlName="email" class="form-control mr-sm-2" placeholder="Email" type="text" aria-label="Create new Todo" required>
-                        <input  formControlName="password" class="form-control mr-sm-2" placeholder="Password" type="text" aria-label="Create new Todo" required>
-                        <button class="btn btn-success my-2 my-sm-0 mv-button-create" type="submit" [disabled]="form.invalid" >SignIn
-                        </button>
-                    </form>
-                </mat-tab>
-                <mat-tab label="LogIn">
-                    <form class="form-inline my-2 my-lg-0" [formGroup]="formControl" #form="ngForm" (ngSubmit)="loginUser()">
-                        <input formControlName="email" class="form-control mr-sm-2" placeholder="Email" type="text" aria-label="Create new Todo">
-                        <input  formControlName="password" class="form-control mr-sm-2" placeholder="Password" type="text" aria-label="Create new Todo">
-                        <button class="btn btn-success my-2 my-sm-0 mv-button-create" type="submit" [disabled]="form.invalid">Login
-                        </button>
-                    </form>
-                </mat-tab>
-            </mat-tab-group>
+<div id="wrapper">
+    <div class="container-fluid loginContainer">
+        <div class="row padding-top-middle">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="form-wrapper text-center">
+                    <div class="text-center ">
+                        <img src="./../../assets/mv.jpg" alt="Moritz Vogt" id="mv_img_login">
+                    </div>
+                    <mat-tab-group class="mat-tab-login-signin">
+                        <mat-tab label="SignIn">
+                            <form class="form-inline my-2 my-lg-0 form-margin" [formGroup]="formControl" #form="ngForm" (ngSubmit)="createUser()">
+                                <input formControlName="email" class="form-control mr-sm-2" placeholder="Email" type="text" aria-label="Create new Todo" required>
+                                <input  formControlName="password" class="form-control mr-sm-2" placeholder="Password" type="text" aria-label="Create new Todo" required>
+                                <div class="position-center">
+                                    <button class="btn btn-primary my-2 my-sm-0 mv-button-create" type="submit" [disabled]="form.invalid" >SignIn</button>
+                                </div>
+                            </form>
+                        </mat-tab>
+                        <mat-tab label="LogIn">
+                            <form class="form-inline my-2 my-lg-0 form-margin" [formGroup]="formControl" #form="ngForm" (ngSubmit)="loginUser()">
+                                <input formControlName="email" class="form-control mr-sm-2" placeholder="Email" type="text" aria-label="Create new Todo">
+                                <input  formControlName="password" class="form-control mr-sm-2" placeholder="Password" type="text" aria-label="Create new Todo">
+                                <div class="position-center">
+                                    <button class="btn btn-primary button" type="submit" [disabled]="form.invalid">Login</button>
+                                </div>
+                            </form>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
         </div>
-        <div class="col-md-1"></div>
-
     </div>
 </div>
-

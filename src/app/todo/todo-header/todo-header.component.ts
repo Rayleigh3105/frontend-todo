@@ -13,7 +13,7 @@ export class TodoHeaderComponent implements OnInit, OnDestroy {
 
   todoToCreate: Todo;
 
-  constructor( private $todo: TodoService, private router: Router ) { }
+  constructor( private $todo: TodoService, private $user: UserLoginService, private router: Router ) { }
 
   createTodo( todoText : any ) {
     this.todoToCreate = {
@@ -25,12 +25,13 @@ export class TodoHeaderComponent implements OnInit, OnDestroy {
   }
 
   logoutUser() {
-     localStorage.removeItem('x-auth');
+     this.$user.logoutUser();
      this.router.navigate(['/login']);
   }
   ngOnInit() {}
 
   ngOnDestroy() {
+      sessionStorage.removeItem('x-auth');
   }
 
 }
