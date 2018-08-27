@@ -12,7 +12,7 @@
                             <form class="form-inline my-2 my-lg-0 form-margin" [formGroup]="formControl" #form="ngForm"
                                   (ngSubmit)="createUser()">
                                 <input formControlName="email" class="form-control mr-sm-2" placeholder="Email"
-                                           type="text" aria-label="Create new Todo" required>
+                                           type="text" aria-label="Create new Todo" required autofocus>
                                     <input formControlName="password" class="form-control mr-sm-2"
                                            placeholder="Password" type="text" aria-label="Create new Todo" required>
                                 <div class="position-center">

@@ -1,12 +1,11 @@
 <!-- HEADER -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a class="navbar-brand" href="#">Todo - App</a>
-  <form class="form-inline my-2 my-lg-0">
-    <input #todoText class="form-control mr-sm-2" placeholder="Create new Todo" type="text" aria-label="Create new Todo">
-    <button class="btn my-2 my-sm-0 mv-button-create" (click)="createTodo(todoText)">
+<nav class="navbar navbar-dark bg-success">
+  <form class="form-inline my-2 my-lg-0" [formGroup]="formControl" #form="ngForm">
+    <input formControlName="text" class="form-control mr-sm-2" placeholder="Create new Todo" type="text" aria-label="Create new Todo" autofocus>
+    <button class="btn my-2 my-sm-0 " (click)="createTodo();formControl.reset()">
       <i class="material-icons">create</i>
     </button>
   </form>
-    <button class="btn btn-outline-danger" (click)="logoutUser()">Logout</button>
+    <button class="btn btn-danger pull-right" (click)="logoutUser()">Logout</button>
 
 </nav>

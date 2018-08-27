@@ -12,12 +12,13 @@ import {
   MatSliderModule
 } from '@angular/material';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserLoginService} from "../login/user-login.service";
 
 @NgModule({
   imports: [
     CommonModule,
+      ReactiveFormsModule,
     HttpClientModule,
     MatButtonModule,
     MatIconModule,

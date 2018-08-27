@@ -3,6 +3,7 @@ import {TodoService} from '../todo.service';
 import {Todo} from '../todo';
 import {UserLoginService} from "../../login/user-login.service";
 import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-todo-header',
@@ -11,27 +12,38 @@ import {Router} from "@angular/router";
 })
 export class TodoHeaderComponent implements OnInit, OnDestroy {
 
-  todoToCreate: Todo;
+    todoToCreate: Todo;
+    formControl = this.createForm();
 
-  constructor( private $todo: TodoService, private $user: UserLoginService, private router: Router ) { }
 
-  createTodo( todoText : any ) {
-    this.todoToCreate = {
-      text: todoText.value
-    };
+    constructor(private $todo: TodoService, private $user: UserLoginService, private router: Router) {
+    }
 
-    todoText.value = '';
-    this.$todo.createTodo( this.todoToCreate ).subscribe();
-  }
+    createTodo() {
+        this.todoToCreate = {
+            text: this.formControl.value.text
+        };
 
-  logoutUser() {
-     this.$user.logoutUser();
-     this.router.navigate(['/login']);
-  }
-  ngOnInit() {}
+        this.formControl.value.text = '';
+        this.$todo.createTodo(this.todoToCreate).subscribe();
+    }
 
-  ngOnDestroy() {
-      sessionStorage.removeItem('x-auth');
-  }
+    logoutUser() {
+        this.$user.logoutUser();
+        this.router.navigate(['/login']);
+    }
 
+    ngOnInit() {
+    }
+
+    ngOnDestroy() {
+        sessionStorage.removeItem('x-auth');
+    }
+
+    createForm(): FormGroup {
+        return new FormGroup({
+            text: new FormControl()
+        })
+
+    }
 }
