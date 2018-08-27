@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import {UserLoginService} from "./login/user-login.service";
 import {HttpClientModule} from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
-import {MatTabsModule} from "@angular/material";
+import {MatIconModule, MatTabsModule} from '@angular/material';
 
 
 @NgModule({
@@ -29,6 +29,7 @@ import {MatTabsModule} from "@angular/material";
     TodoModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    MatIconModule
 
 ],
   providers: [ UserLoginService ],
