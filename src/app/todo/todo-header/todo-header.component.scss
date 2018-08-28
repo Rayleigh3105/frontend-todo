@@ -1,15 +1,16 @@
 :host {
-  nav form button {
+  .btn-create {
     background-color: #dddddd;
     border-radius: 25px;
     height: 38px;
     width: 38px;
-    margin-left: -25px;
-  }
+    float: left;
+    }
 
-  nav form button i {
+  .btn-create i {
     margin-left: -5px;
   }
+
 
 
 }

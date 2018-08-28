@@ -1,31 +1,21 @@
 <app-todo-header></app-todo-header>
-
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <div *ngFor="let todo of $todo.todos$ | async">
-        <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 padding-top-small">
+        <div class="row ">
           <div class="col-md-12">
-            <div class="row todoBox">
-              <div class="col-md-8">
-                <div>
+              <div *ngFor="let todo of $todo.todos$ | async" class="todoBox">
                   {{ todo.text }}
+                <div class="float-right icons">
+                    <mat-checkbox (change)="updateTodoCompleted( todo )" [(ngModel)]="todo.completed"></mat-checkbox>
+                    <button class="btn-delete-todo" (click)="deleteTodo( todo )"><mat-icon>delete_forever</mat-icon></button>
                 </div>
-              </div>
-              <div class="col-md-1">
-                <mat-checkbox (change)="updateTodoCompleted( todo )" [(ngModel)]="todo.completed"></mat-checkbox>
-              </div>
-              <div class="col-md-1">
-                <button (click)="deleteTodo( todo )"><mat-icon>delete_forever</mat-icon></button>
-              </div>
             </div>
-
           </div>
         </div>
-      </div>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-3"></div>
   </div>
 </div>
 
