@@ -9,7 +9,7 @@ import {
   MatCheckboxModule,
   MatIconModule,
   MatListModule,
-  MatSliderModule
+  MatSliderModule, MatTooltipModule
 } from '@angular/material';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -25,7 +25,8 @@ import {UserLoginService} from "../login/user-login.service";
     FormsModule,
     MatListModule,
     MatSliderModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTooltipModule
   ],
   declarations: [
     TodoListComponent,

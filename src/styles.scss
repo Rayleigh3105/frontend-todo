@@ -12,3 +12,9 @@
 .padding-top-middle {
   padding-top: 7%;
 }
+
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}

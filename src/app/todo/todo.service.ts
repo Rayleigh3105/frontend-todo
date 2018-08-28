@@ -29,9 +29,9 @@ export class TodoService {
 
     return this.$http.post<Todo>( this.todoEndPoint, todo, this.updateXAuthfromSessionStorage() )
       .pipe(
-        tap( () => {
+        tap( ( todoDB ) => {
           const todoList = [ ... this.todos$.getValue() ];
-          this.todos$.next( [ ... todoList, todo ]);
+          this.todos$.next( [ ... todoList, todoDB ]);
           this.getAllTodos();
         })
       );
@@ -42,7 +42,7 @@ export class TodoService {
 
         return this.$http.delete<Todo>( `${this.todoEndPoint}/${todo._id}`, this.updateXAuthfromSessionStorage())
             .pipe(
-                tap( () => {
+                tap( ( ) => {
                     const todoList = [ ... this.todos$.getValue() ]
                     const index = todoList.indexOf( todo );
                     if ( index !== -1 ) {

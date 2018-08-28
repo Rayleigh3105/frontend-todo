@@ -1,33 +1,26 @@
 :host {
 
-  --checkBoxBorderColor: grey;
-  .todoBox {
-    width: 100%;
-    height: 50px;
-    background-color: #dddddd;
-    float: left;
-    margin-top: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+  * {
+    font-size: 18px;
   }
 
-  .todoBox:hover {
-    background-color: lightgrey;
-  }
+  --checkBoxBorderColor: grey;
+
+  .todoBox {
+    width: 80%;
+    height: 50px;
+    margin-top: 20px;
+    }
 
   padding-top-small {
     padding-top: 20px;
   }
-  .icons{
-    padding-right: 20px;
-  }
 
   .btn-delete-todo {
+
     border: 0;
     cursor: pointer;
-    background-color: #dddddd;
+    background-color: white;
   }
   ::ng-deep .mat-checkbox .mat-checkbox-frame {
     border-color: var(--checkBoxBorderColor);
@@ -37,5 +30,71 @@
     background-color: #28A745 !important;
   }
 
+  .container-full-height {
+    min-height: 100vh;
+    height: auto;
+    background-color: rgba(130,130,130,0.07);
 
+  }
+  #todo-text {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+
+  }
+
+  #todo-text-completed {
+    text-decoration: line-through !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+  }
+
+  #todo-text-container {
+    flex-basis: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  #wrapper-todo {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px silver;
+  }
+
+  #wrapper-todo:hover {
+    //background-color: lightgrey;
+  }
+  .mat-checkbox {
+    padding-top: 10px;
+    flex-basis: 50px;
+  }
+  #icon {
+    cursor: pointer;
+    flex-basis: 50px;
+    font-size: 27px;
+    padding-top: 0.5px;
+  }
+
+  //#border-icons{
+  //  border: 1px solid gray;
+  //  opacity: 0.4;
+  //  height: 15px;
+  //  align-self: center;
+  //}
+
+  @media only screen and (max-width: 400px) {
+    .todoBox {
+      width: 100%;
+    }
+  }
 }
