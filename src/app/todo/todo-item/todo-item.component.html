@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
-                            <div *ngFor="let todo of $todo.todos$ | async" class="todoBox" [ngClass]="{'animated': todo.completed === false, 'slideInUp': todo.completed === false}">
+                            <div *ngFor="let todo of $todo.todos$ | async" class="todoBox">
                                 <div id="wrapper-todo">
                                     <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left" *ngIf="!todo.completed">
                                         <span  id="todo-text">{{ todo.text }}</span>
