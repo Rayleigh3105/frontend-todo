@@ -56,8 +56,13 @@ export class TodoService {
     updateTodo( todo : Todo ): Observable<Todo> {
       return this.$http.patch<Todo>( `${this.todoEndPoint}/${todo._id}`, todo, this.updateXAuthfromSessionStorage())
           .pipe(
-              tap( () => {
-                  this.getAllTodos();
+              tap( ( todoDB ) => {
+                const todoList = [ ... this.todos$.getValue() ];
+                let index = todoList.indexOf( todo );
+                if ( index !== -1 ){
+                  todoList[index] = todoDB;
+                }
+                this.todos$.next( todoList );
               })
           )
     }

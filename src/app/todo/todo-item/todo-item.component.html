@@ -6,21 +6,22 @@
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
-                            <div *ngFor="let todo of $todo.todos$ | async" class="todoBox">
+                            <div *ngFor="let todo of $todo.todos$ | async" class="todoBox" [ngClass]="{'animated': todo.completed === false, 'slideInUp': todo.completed === false}">
                                 <div id="wrapper-todo">
-                                    <div id="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left" >
-                                        <span *ngIf="!todo.completed" id="todo-text">{{ todo.text }}</span>
-                                        <span *ngIf="todo.completed" id="todo-text-completed">{{ todo.text }}</span>
+                                    <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left" *ngIf="!todo.completed">
+                                        <span  id="todo-text">{{ todo.text }}</span>
+                                     </div>
+
+                                    <div class="todo-text-container" matTooltip="Todo completed: {{ todo.completedAt }}" matTooltipPosition="left" *ngIf="todo.completed">
+                                        <span id="todo-text-completed">{{ todo.text }}</span>
                                     </div>
+
                                     <div class="mat-checkbox">
-                                        <mat-checkbox (change)="updateTodoCompleted( todo )" [(ngModel)]="todo.completed" matTooltip="Completed ?" matTooltipPosition="left" ></mat-checkbox>
+                                        <mat-checkbox (change)="updateTodoCompleted( todo )" [(ngModel)]="todo.completed"></mat-checkbox>
                                     </div>
-                                    <div id="border-icons"></div>
-                                    <div>
                                         <div id="icon" (click)="deleteTodo( todo )">
                                             <mat-icon [inline]="true" matTooltip="Delete Todo" matTooltipPosition="right" >delete_forever</mat-icon>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                     </div>

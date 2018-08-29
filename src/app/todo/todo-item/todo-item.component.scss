@@ -2,6 +2,7 @@
 
   * {
     font-size: 18px;
+    overflow: hidden;
   }
 
   --checkBoxBorderColor: grey;
@@ -37,7 +38,7 @@
 
   }
   #todo-text {
-    padding-top: 10px;
+    padding-top: 15px;
     padding-bottom: 10px;
     padding-left: 20px;
     display: inline-block;
@@ -48,7 +49,7 @@
 
   #todo-text-completed {
     text-decoration: line-through !important;
-    padding-top: 10px;
+    padding-top: 15px;
     padding-bottom: 10px;
     padding-left: 20px;
     display: inline-block;
@@ -56,7 +57,7 @@
     line-height: normal;
   }
 
-  #todo-text-container {
+  .todo-text-container {
     flex-basis: 80%;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -71,26 +72,16 @@
     box-shadow: 3px 3px 3px silver;
   }
 
-  #wrapper-todo:hover {
-    //background-color: lightgrey;
-  }
   .mat-checkbox {
-    padding-top: 10px;
+    padding-top: 15px;
     flex-basis: 50px;
   }
   #icon {
     cursor: pointer;
     flex-basis: 50px;
     font-size: 27px;
-    padding-top: 0.5px;
+    padding-top: 5px;
   }
-
-  //#border-icons{
-  //  border: 1px solid gray;
-  //  opacity: 0.4;
-  //  height: 15px;
-  //  align-self: center;
-  //}
 
   @media only screen and (max-width: 400px) {
     .todoBox {
