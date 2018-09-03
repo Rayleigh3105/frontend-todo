@@ -12,7 +12,7 @@ export class TodoService {
 
   todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>( [] ) ;
 
-  readonly todoEndPoint = environment.endpoint + "todos"
+  readonly todoEndPoint = environment.endpoint + "todos";
 
   constructor( private $http: HttpClient) {}
 

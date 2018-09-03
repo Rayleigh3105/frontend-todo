@@ -14,6 +14,7 @@ import {
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserLoginService} from "../login/user-login.service";
+import {CategorieService} from '../categorie.service';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import {UserLoginService} from "../login/user-login.service";
   ]
   ,providers: [
     TodoService,
+    CategorieService,
     UserLoginService
   ],
 })
