@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TodoService} from '../todo.service';
-import {Todo} from '../todo';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {UserLoginService} from "../../login/user-login.service";
 import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatDialog} from '@angular/material';
+import {AddCategorieDialogComponent} from './add-categorie-dialog/add-categorie-dialog.component';
+import {Categorie} from '../../categorie';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-todo-header',
@@ -11,39 +12,35 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./todo-header.component.scss']
 })
 export class TodoHeaderComponent implements OnInit, OnDestroy {
+  @Input()
+  com1ref: Function;
 
-    todoToCreate: Todo;
-    formControl = this.createForm();
+  public static updateCategorieStatus : Subject<string> = new Subject<string>();
 
+  categorie: Categorie;
+  selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
 
-    constructor(private $todo: TodoService, private $user: UserLoginService, private router: Router) {
-    }
-
-    createTodo() {
-        this.todoToCreate = {
-            text: this.formControl.value.text
-        };
-
-        this.formControl.value.text = '';
-        this.$todo.createTodo(this.todoToCreate).subscribe();
-    }
-
-    logoutUser() {
-        this.$user.logoutUser();
-        this.router.navigate(['/login']);
-    }
+  constructor( private $user: UserLoginService, private router: Router, public dialog: MatDialog,) {
+    TodoHeaderComponent.updateCategorieStatus.subscribe(res => {
+      this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
+      this.com1ref;
+    })
+  }
 
     ngOnInit() {
     }
 
     ngOnDestroy() {
         sessionStorage.removeItem('x-auth');
+        sessionStorage.removeItem('currentSelectedCategorie');
     }
 
-    createForm(): FormGroup {
-        return new FormGroup({
-            text: new FormControl()
-        })
+    logoutUser() {
+      this.$user.logoutUser();
+      this.router.navigate(['/login']);
+    }
 
+    openCreateCategorieDialog() {
+      this.dialog.open(AddCategorieDialogComponent);
     }
 }

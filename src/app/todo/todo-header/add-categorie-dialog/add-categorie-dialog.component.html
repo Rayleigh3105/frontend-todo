@@ -1,0 +1,20 @@
+<div class="text-center">
+    <h1 mat-dialog-title>Select/Create categorie</h1>
+    <mat-form-field>
+        <mat-select (selectionChange)="setCategorieSessionStorage($event.value)" placeholder="Select Categorie" [(ngModel)]="selectedCategorie">
+            <mat-option *ngFor="let categorie of $categorie.categories$ | async" [value]="categorie.text">
+                {{categorie.text}}
+
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-icon-button color="warn" class="mat-button" matTooltip="Delete current categorie" (click)="deleteCurrentCategorie(categorie)">
+        <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+    </button>
+
+    <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
+          (ngSubmit)="createCategorie();formControl.reset()">
+        <input formControlName="categorie" class="form-control mr-sm-2 input-categorie" type="text"
+               aria-label="Create new Categorie" autofocus>
+    </form>
+</div>

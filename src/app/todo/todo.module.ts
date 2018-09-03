@@ -8,13 +8,14 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatIconModule,
-  MatListModule,
+  MatListModule, MatSidenavModule,
   MatSliderModule, MatTooltipModule
 } from '@angular/material';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserLoginService} from "../login/user-login.service";
 import {CategorieService} from '../categorie.service';
+import { AddCategorieDialogComponent } from './todo-header/add-categorie-dialog/add-categorie-dialog.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {CategorieService} from '../categorie.service';
     MatListModule,
     MatSliderModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSidenavModule,
   ],
   declarations: [
     TodoListComponent,
@@ -40,7 +42,11 @@ import {CategorieService} from '../categorie.service';
   ,providers: [
     TodoService,
     CategorieService,
-    UserLoginService
+    UserLoginService,
+    TodoItemComponent
   ],
+  entryComponents: [
+    AddCategorieDialogComponent
+  ]
 })
 export class TodoModule { }

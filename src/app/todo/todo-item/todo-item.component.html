@@ -1,37 +1,56 @@
-<app-todo-header></app-todo-header>
-    <div class="container-fluid container-full-height">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 padding-top-small">
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                            <div *ngFor="let todo of $todo.todos$ | async" class="todoBox">
-                                <div id="wrapper-todo">
-                                    <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left" *ngIf="!todo.completed">
-                                        <span  id="todo-text">{{ todo.text }}</span>
-                                     </div>
-
-                                    <div class="todo-text-container" matTooltip="Todo completed: {{ todo.completedAt }}" matTooltipPosition="left" *ngIf="todo.completed">
-                                        <span id="todo-text-completed">{{ todo.text }}</span>
-                                    </div>
-
-                                    <div class="mat-checkbox">
-                                        <mat-checkbox (change)="updateTodoCompleted( todo )" [(ngModel)]="todo.completed"></mat-checkbox>
-                                    </div>
-                                        <div id="icon" (click)="deleteTodo( todo )">
-                                            <mat-icon [inline]="true" matTooltip="Delete Todo" matTooltipPosition="right" >delete_forever</mat-icon>
-                                        </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <div class="col-md-1"></div>
-
+<app-todo-header [com1ref]="checkIfDisabled()"></app-todo-header>
+<div class="container-fluid container-full-height">
+    <div class="row padding-top-little">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="sticky">
+                <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
+                      (ngSubmit)="createTodo();formControl.reset()">
+                    <input formControlName="text"
+                           class="form-control mr-sm-2 input-todo" placeholder="Create new Todo"
+                           type="text" aria-label="Create new Todo" autofocus>
+                </form>
             </div>
-            <div class="col-md-3"></div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 padding-top-small">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <hr class="hr-text" *ngIf="categorieExists" data-content="Create Categorie first ">
+                    <div *ngFor="let todo of $todo.todos$ | async" class="todoBox">
+                        <div id="wrapper-todo">
+                            <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left"
+                                 *ngIf="!todo.completed">
+                                <span id="todo-text">{{ todo.text }}</span>
+                            </div>
+
+                            <div class="todo-text-container" matTooltip="Todo completed: {{ todo.completedAt }}"
+                                 matTooltipPosition="left" *ngIf="todo.completed">
+                                <span id="todo-text-completed">{{ todo.text }}</span>
+                            </div>
+
+                            <div class="mat-checkbox">
+                                <mat-checkbox (change)="updateTodoCompleted( todo )"
+                                              [(ngModel)]="todo.completed"></mat-checkbox>
+                            </div>
+                            <div id="icon" (click)="deleteTodo( todo )">
+                                <mat-icon [inline]="true" matTooltip="Delete Todo" matTooltipPosition="right">
+                                    delete_forever
+                                </mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
 
 
 

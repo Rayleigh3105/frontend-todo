@@ -17,7 +17,7 @@ export class CategorieService {
 
   constructor( private $http: HttpClient) { }
 
-  private getAllCategories(): Observable<Categorie[]> {
+  getAllCategories(): Observable<Categorie[]> {
     return this.$http.get<Categorie[]>( this.categorieEndpoint, this.updateXAuthfromSessionStorage() )
       .pipe(
         tap( val => this.categories$.next( val ) )
@@ -25,7 +25,7 @@ export class CategorieService {
   }
 
   // Create Categorie
-  createCategorie( categorie: Categorie): Observable<Categorie> {
+  createCategorie( categorie: Categorie ): Observable<Categorie> {
     return this.$http.post<Categorie>( this.categorieEndpoint, categorie, this.updateXAuthfromSessionStorage() )
       .pipe(
         tap( ( categorieDB ) => {
@@ -66,6 +66,7 @@ export class CategorieService {
 
   updateXAuthfromSessionStorage() {
     let headers = {
+      'x-categorie': sessionStorage.getItem('currentSelectedCategorie'),
       'x-auth': sessionStorage.getItem('x-auth')
     };
 

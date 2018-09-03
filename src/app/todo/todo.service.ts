@@ -69,6 +69,7 @@ export class TodoService {
 
     updateXAuthfromSessionStorage() {
         let headers = {
+            'x-categorie': sessionStorage.getItem('currentSelectedCategorie'),
             'x-auth': sessionStorage.getItem('x-auth')
         };
 

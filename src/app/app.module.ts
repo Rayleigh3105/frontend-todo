@@ -10,8 +10,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LoginComponent } from './login/login.component';
 import {UserLoginService} from "./login/user-login.service";
 import {HttpClientModule} from "@angular/common/http";
-import { ReactiveFormsModule } from "@angular/forms";
-import {MatIconModule, MatTabsModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatDialog, MatDialogModule, MatIconModule, MatOptionModule, MatSelectModule, MatTabsModule} from '@angular/material';
+import {AddCategorieDialogComponent} from './todo/todo-header/add-categorie-dialog/add-categorie-dialog.component';
+import {MatFormFieldModule} from '@angular/material/typings/esm5/form-field';
 
 
 @NgModule({
@@ -19,7 +21,7 @@ import {MatIconModule, MatTabsModule} from '@angular/material';
     AppComponent,
     DashboardComponent,
     LoginComponent,
-
+    AddCategorieDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -29,10 +31,16 @@ import {MatIconModule, MatTabsModule} from '@angular/material';
     TodoModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
+    FormsModule,
 
-],
-  providers: [ UserLoginService ],
+
+  ],
+  entryComponents: [AddCategorieDialogComponent],
+  providers: [ UserLoginService, MatDialog ],
   bootstrap: [AppComponent],
   exports:[ HttpClientModule ]
 })
