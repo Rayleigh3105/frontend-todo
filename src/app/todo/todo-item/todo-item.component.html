@@ -1,3 +1,4 @@
+<!--HEADER-->
 <nav class="navbar navbar-dark bg-success sticky-top">
     <button mat-icon-button matTooltip="Select/Create Categorie" (click)="openCreateCategorieDialog()">
         <mat-icon aria-label="Example icon-button with a heart icon">apps</mat-icon>
@@ -25,11 +26,11 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6 padding-top-small">
-            <div class="row " *ngIf="categorieExists">
+            <div class="row">
                 <div class="col-md-1"></div>
-                <div class="col-md-10">
-                    <hr class="hr-text" *ngIf="categorieExists" data-content="Create Categorie first ">
-                    <div *ngFor="let todo of $todo.todos$ | async" class="todoBox">
+                <div class="col-md-10" *ngIf="todoExists">
+                    <hr class="hr-text" data-content="Create Categorie first " *ngIf="categorieExists">
+                    <div *ngFor="let todo of $todo.todos$ | async"  class="todoBox">
                         <div id="wrapper-todo">
                             <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left"
                                  *ngIf="!todo.completed">

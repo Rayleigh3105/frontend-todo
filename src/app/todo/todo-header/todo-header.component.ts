@@ -13,39 +13,12 @@ import {TodoService} from '../todo.service';
   templateUrl: './todo-header.component.html',
   styleUrls: ['./todo-header.component.scss']
 })
-export class TodoHeaderComponent implements OnInit, OnDestroy {
+export class TodoHeaderComponent implements OnInit {
 
-  categorie: Categorie;
-  selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
-  dialogRefC: MatDialogRef<AddCategorieDialogComponent>;
-  private subscribtions: Subscription[] = [];
-
-
-  constructor( private $user: UserLoginService, private router: Router, public dialog: MatDialog, private $todo: TodoService) {}
+  constructor() {}
 
     ngOnInit() {
     }
 
-    ngOnDestroy() {
-        sessionStorage.removeItem('x-auth');
-        sessionStorage.removeItem('currentSelectedCategorie');
 
-        // Unsubscribe Subscribtions
-      this.subscribtions.forEach( subscriptions => subscriptions.unsubscribe() )
-
-    }
-
-    logoutUser() {
-      this.$user.logoutUser();
-      this.router.navigate(['/login']);
-    }
-
-    openCreateCategorieDialog() {
-      this.dialogRefC = this.dialog.open(AddCategorieDialogComponent);
-
-      this.subscribtions.push(this.dialogRefC.afterClosed().subscribe( result => {
-        this.subscribtions.push( this.$todo.getAllTodos().subscribe() );
-        this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
-      }));
-    }
 }

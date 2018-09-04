@@ -7,6 +7,7 @@ import {TodoService} from '../../todo.service';
 import {TodoHeaderComponent} from '../todo-header.component';
 import {Subscription} from 'rxjs/Subscription';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-add-categorie-dialog',
@@ -27,6 +28,8 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.$categorie.getAllCategories().subscribe()
+    console.log(this.$categorie.categories$.getValue())
   }
 
   constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService) { }

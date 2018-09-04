@@ -20,7 +20,7 @@ export class CategorieService {
   getAllCategories(): Observable<Categorie[]> {
     return this.$http.get<Categorie[]>( this.categorieEndpoint, this.updateXAuthfromSessionStorage() )
       .pipe(
-        tap( val => this.categories$.next( val ) )
+        tap( val => this.categories$.next( val ) ),
       )
   }
 

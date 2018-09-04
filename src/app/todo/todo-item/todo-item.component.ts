@@ -22,6 +22,7 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   formControl = this.createForm();
   selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
   categorieExists: boolean;
+  todoExists: boolean = false;
   private subscriptons: Subscription[] = [];
   dialogRefC: MatDialogRef<AddCategorieDialogComponent>;
 
@@ -36,13 +37,15 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.subscriptons.push( this.$todo.getAllTodos().subscribe() )
   }
 
 
   // CONSTRUCTOR
   constructor(public $todo: TodoService, public $categorie: CategorieService, private $user: UserLoginService,private router: Router, public dialog: MatDialog) {
     this.checkIfDisabled();
-    this.subscriptons.push(this.$categorie.getAllCategories().subscribe()) ;
+    this.subscriptons.push(this.$categorie.getAllCategories().subscribe());
+    console.log(this.$todo.todos$.getValue())
   }
 
   // METHODS
@@ -79,8 +82,8 @@ export class TodoItemComponent implements OnInit, OnDestroy {
     this.todoToCreate = {
       text: this.formControl.value.text,
       categorie: sessionStorage.getItem('currentSelectedCategorie')
-  };
-
+    };
+    this.todoExists = true;
     this.formControl.value.text = '';
     this.subscriptons.push( this.$todo.createTodo(this.todoToCreate).subscribe() ) ;
   }
