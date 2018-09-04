@@ -13,7 +13,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialog, MatDialogModule, MatIconModule, MatOptionModule, MatSelectModule, MatTabsModule} from '@angular/material';
 import {AddCategorieDialogComponent} from './todo/todo-header/add-categorie-dialog/add-categorie-dialog.component';
-import {MatFormFieldModule} from '@angular/material/typings/esm5/form-field';
 
 
 @NgModule({
@@ -21,7 +20,7 @@ import {MatFormFieldModule} from '@angular/material/typings/esm5/form-field';
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    AddCategorieDialogComponent
+    AddCategorieDialogComponent,
   ],
   imports: [
     BrowserModule,

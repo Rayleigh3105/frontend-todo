@@ -9,9 +9,12 @@
   text-align: center !important;
 }
 .padding-top-little {
-  padding-top: 2%;
+  padding-top: 1.6%;
 }
-
+.flexbox {
+  display: flex;
+  flex-direction: column;
+}
 
 .padding-top-middle {
   padding-top: 7%;

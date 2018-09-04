@@ -3,8 +3,11 @@
     <button mat-icon-button matTooltip="Select/Create Categorie" (click)="openCreateCategorieDialog()">
         <mat-icon aria-label="Example icon-button with a heart icon">apps</mat-icon>
     </button>
-
-    <strong><h5>{{ selectedCategorie }}</h5></strong>
+    <div class="flexContainer1" >
+        <div >
+            <img src="./../../../assets/user.svg" alt="User" id="mv_svg_user" (click)="openUserInformation()">
+        </div>
+    </div>
 
     <button class="btn btn-danger pull-right" (click)="logoutUser()">Logout</button>
 </nav>
@@ -14,6 +17,14 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="sticky">
+                <div class="flexContainer" *ngIf="selectedCategorie">
+                    <div matTooltip="Categorie" matTooltipPosition="left">
+                        <mat-icon class="categorie-icon" >layers</mat-icon>
+                    </div>
+                    <div id="selectedCategorie">
+                        <span>{{ selectedCategorie }}</span>
+                    </div>
+                </div>
                 <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
                       (ngSubmit)="createTodo();formControl.reset()">
                     <input formControlName="text"
@@ -35,7 +46,8 @@
                             <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left"
                                  *ngIf="!todo.completed">
                                 <form [formGroup]="formTodoInput" #todoForm="ngForm" (ngSubmit)="updateTodo( todo )">
-                                    <span id="todo-text"><input class="input-update-todo" formControlName="todoInput" type="text" [value]="todo.text"></span>
+                                    <span id="todo-text"><input class="input-update-todo" formControlName="todoInput"
+                                                                type="text" [value]="todo.text"></span>
                                 </form>
                             </div>
 

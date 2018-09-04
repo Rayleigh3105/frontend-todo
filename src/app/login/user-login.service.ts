@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {map} from "rxjs/operators";
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,16 +30,25 @@ export class UserLoginService {
           ).toPromise();
   }
 
+  getCurrentUser(): Promise<User> {
+    return this.$http.get<User>( environment.endpoint + "users/me", this.updatexAuthHeader()).toPromise()
+
+  }
+
   logoutUser() {
-      let headers = {
-          'x-auth': sessionStorage.getItem('x-auth')
-      };
+        return this.$http.delete(environment.endpoint + "users/me/token", this.updatexAuthHeader() )
+  }
 
-      let requestOptions = {
-          headers: new HttpHeaders(headers)
-      };
+  updatexAuthHeader() {
+    let headers = {
+      'x-auth': sessionStorage.getItem('x-auth')
+    };
 
-        return this.$http.delete(environment.endpoint + "users/me/token", requestOptions)
+    let requestOptions = {
+      headers: new HttpHeaders(headers)
+    };
+
+    return requestOptions
   }
 
 }

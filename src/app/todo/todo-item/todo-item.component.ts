@@ -8,6 +8,7 @@ import {UserLoginService} from '../../login/user-login.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {Router} from '@angular/router';
 import {PlatformLocation} from '@angular/common';
+import {UserInformationComponent} from '../../user-information/user-information.component';
 
 @Component({
   selector: 'app-todo-item',
@@ -24,7 +25,8 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   categorieExists: boolean;
   todoExists: boolean = false;
   private subscriptons: Subscription[] = [];
-  dialogRefC: MatDialogRef<AddCategorieDialogComponent>;
+  dialogRefAddCategorie: MatDialogRef<AddCategorieDialogComponent>;
+  dialogRefUserInfo: MatDialogRef<UserInformationComponent>;
 
 
   // Lifecyclehooks
@@ -69,15 +71,20 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   }
 
   openCreateCategorieDialog() {
-    this.dialogRefC = this.dialog.open(AddCategorieDialogComponent);
+    this.dialogRefAddCategorie = this.dialog.open(AddCategorieDialogComponent);
 
-    this.subscriptons.push(this.dialogRefC.afterClosed().subscribe( result => {
+    this.subscriptons.push(this.dialogRefAddCategorie.afterClosed().subscribe(result => {
       this.checkIfDisabled();
       this.todoExists = true;
       this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
       this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
     }));
   }
+
+  openUserInformation() {
+    this.dialogRefUserInfo = this.dialog.open(UserInformationComponent);
+  }
+
 
   // CREATE
   createTodo() {

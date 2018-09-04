@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserLoginService} from "../login/user-login.service";
 import {CategorieService} from '../categorie.service';
 import { AddCategorieDialogComponent } from './todo-header/add-categorie-dialog/add-categorie-dialog.component';
+import {UserInformationComponent} from '../user-information/user-information.component';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { AddCategorieDialogComponent } from './todo-header/add-categorie-dialog/
     TodoListComponent,
     TodoItemComponent,
     TodoHeaderComponent,
+    UserInformationComponent
   ],
   exports: [
     TodoListComponent
@@ -43,10 +45,12 @@ import { AddCategorieDialogComponent } from './todo-header/add-categorie-dialog/
     TodoService,
     CategorieService,
     UserLoginService,
-    TodoItemComponent
+    TodoItemComponent,
+
   ],
   entryComponents: [
-    AddCategorieDialogComponent
+    AddCategorieDialogComponent,
+    UserInformationComponent
   ]
 })
 export class TodoModule { }
