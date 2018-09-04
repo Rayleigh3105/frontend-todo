@@ -13,14 +13,24 @@ export class CategorieService {
 
   categories$: BehaviorSubject<Categorie[]> = new BehaviorSubject<Categorie[]>( [] );
 
-  readonly  categorieEndpoint = environment.endpoint + "categorie";
+  readonly categorieEndpoint = environment.endpoint + "categorie";
 
   constructor( private $http: HttpClient) { }
 
   getAllCategories(): Observable<Categorie[]> {
-    return this.$http.get<Categorie[]>( this.categorieEndpoint, this.updateXAuthfromSessionStorage() )
+    let headers = {
+      'x-auth': sessionStorage.getItem('x-auth')
+    };
+
+    let requestOptions = {
+      headers: new HttpHeaders(headers)
+    };
+
+    return this.$http.get<Categorie[]>( this.categorieEndpoint, requestOptions )
       .pipe(
-        tap( val => this.categories$.next( val ) ),
+        tap( val => {
+          this.categories$.next( val );
+        } ),
       )
   }
 

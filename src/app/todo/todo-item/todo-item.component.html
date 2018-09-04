@@ -20,6 +20,7 @@
                            class="form-control mr-sm-2 input-todo" placeholder="Create new Todo"
                            type="text" aria-label="Create new Todo" autofocus>
                 </form>
+                <hr class="hr-text" data-content="Select/Create categorie first " *ngIf="categorieExists">
             </div>
         </div>
     </div>
@@ -29,7 +30,6 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10" *ngIf="todoExists">
-                    <hr class="hr-text" data-content="Create Categorie first " *ngIf="categorieExists">
                     <div *ngFor="let todo of $todo.todos$ | async"  class="todoBox">
                         <div id="wrapper-todo">
                             <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left"

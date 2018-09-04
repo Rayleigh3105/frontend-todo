@@ -37,15 +37,14 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptons.push( this.$todo.getAllTodos().subscribe() )
+    this.checkIfDisabled();
+    this.subscriptons.push(this.$todo.getAllTodos().subscribe());
   }
 
 
   // CONSTRUCTOR
-  constructor(public $todo: TodoService, public $categorie: CategorieService, private $user: UserLoginService,private router: Router, public dialog: MatDialog) {
-    this.checkIfDisabled();
-    this.subscriptons.push(this.$categorie.getAllCategories().subscribe());
-    console.log(this.$todo.todos$.getValue())
+  constructor(public $todo: TodoService, private $user: UserLoginService,private router: Router, public dialog: MatDialog) {
+
   }
 
   // METHODS
@@ -61,9 +60,8 @@ export class TodoItemComponent implements OnInit, OnDestroy {
     }
   }
 
-
   logoutUser() {
-    this.$user.logoutUser();
+    this.subscriptons.push( this.$user.logoutUser().subscribe() );
     this.router.navigate(['/login']);
   }
 
@@ -72,6 +70,7 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
     this.subscriptons.push(this.dialogRefC.afterClosed().subscribe( result => {
       this.checkIfDisabled();
+      this.todoExists = true;
       this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
       this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
     }));

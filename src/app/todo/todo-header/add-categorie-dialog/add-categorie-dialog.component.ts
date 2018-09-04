@@ -28,11 +28,11 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.$categorie.getAllCategories().subscribe()
-    console.log(this.$categorie.categories$.getValue())
+    this.subscriptons.push( this.$categorie.getAllCategories().subscribe( ));
+
   }
 
-  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService) { }
+  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService) {}
 
   // CREATES CATEGORIE
   // - sets sessionStorage for new Categorie
