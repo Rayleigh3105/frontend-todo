@@ -12,6 +12,7 @@ import {tap} from 'rxjs/operators';
 export class CategorieService {
 
   categories$: BehaviorSubject<Categorie[]> = new BehaviorSubject<Categorie[]>( [] );
+  categorie: Categorie;
 
   readonly categorieEndpoint = environment.endpoint + "categorie";
 
@@ -46,16 +47,20 @@ export class CategorieService {
       )
   }
 
-  deleteCategorieById( categorie: Categorie ): Observable<Categorie> {
-    return this.$http.delete<Categorie>( `${this.categorieEndpoint}/${categorie._id}`, this.updateXAuthfromSessionStorage() )
+  deleteCategorieById(  ): Observable<Categorie> {
+    return this.$http.delete<Categorie>( `${this.categorieEndpoint}`, this.updateXAuthfromSessionStorage() )
       .pipe(
         tap( ( ) => {
+          this.categorie = {
+            text: sessionStorage.getItem('currentSelectedCategorie')
+          }
           const categorieList = [ ... this.categories$.getValue() ];
-          const index = categorieList.indexOf( categorie );
+          const index = categorieList.indexOf( this.categorie );
           if ( index !== -1 ){
             categorieList.splice( index, 1 );
           }
           this.categories$.next( categorieList );
+          sessionStorage.removeItem('currentSelectedCategorie');
         })
       )
   }

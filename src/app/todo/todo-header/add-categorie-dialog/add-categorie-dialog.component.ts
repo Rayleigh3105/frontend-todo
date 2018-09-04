@@ -63,9 +63,10 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   // DELETES CURRENT CATEGORIE
   // - in DB and sessionStorage
   // Todo - After deletion of Categorie it should chanage to an existing one
-  deleteCurrentCategorie( categorie: Categorie) {
-    sessionStorage.removeItem('currentSelectedCategorie');
-    this.subscriptons.push(this.$categorie.deleteCategorieById( categorie ).subscribe());
+  deleteCurrentCategorie( ) {
+    this.subscriptons.push(this.$categorie.deleteCategorieById( ).subscribe( () => {
+      this.dialogRef.close();
+    }));
   }
 
   createForm(): FormGroup {
