@@ -1,10 +1,9 @@
 <div class="text-center">
     <h1 mat-dialog-title>Select/Create categorie</h1>
     <mat-form-field>
-        <mat-select (selectionChange)="setCategorieSessionStorage($event.value)" placeholder="Select Categorie" [(ngModel)]="selectedCategorie">
+        <mat-select (selectionChange)="setCategorieSessionStorage($event.value)" placeholder="Select Categorie">
             <mat-option *ngFor="let categorie of $categorie.categories$ | async" [value]="categorie.text">
                 {{categorie.text}}
-
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -15,6 +14,6 @@
     <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
           (ngSubmit)="createCategorie();formControl.reset()">
         <input formControlName="categorie" class="form-control mr-sm-2 input-categorie" type="text"
-               aria-label="Create new Categorie" autofocus>
+               aria-label="Create new Categorie" pattern="[A-Za-z0-9]{1,50}" autofocus required>
     </form>
 </div>

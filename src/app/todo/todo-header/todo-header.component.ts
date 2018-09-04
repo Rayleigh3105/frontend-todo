@@ -1,10 +1,12 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {UserLoginService} from "../../login/user-login.service";
 import {Router} from "@angular/router";
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {AddCategorieDialogComponent} from './add-categorie-dialog/add-categorie-dialog.component';
 import {Categorie} from '../../categorie';
 import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
+import {TodoService} from '../todo.service';
 
 @Component({
   selector: 'app-todo-header',
@@ -12,21 +14,16 @@ import {Subject} from 'rxjs/Subject';
   styleUrls: ['./todo-header.component.scss']
 })
 export class TodoHeaderComponent implements OnInit, OnDestroy {
-  @Input()
-  com1ref: Function;
-
-  public static updateCategorieStatus : Subject<string> = new Subject<string>();
 
   categorie: Categorie;
   selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
+  dialogRefC: MatDialogRef<AddCategorieDialogComponent>;
+  private subscribtions: Subscription[] = [];
 
-  constructor( private $user: UserLoginService, private router: Router, public dialog: MatDialog ) {}
+
+  constructor( private $user: UserLoginService, private router: Router, public dialog: MatDialog, private $todo: TodoService) {}
 
     ngOnInit() {
-      TodoHeaderComponent.updateCategorieStatus.subscribe(res => {
-        this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
-        this.com1ref;
-      })
     }
 
     ngOnDestroy() {
@@ -34,7 +31,8 @@ export class TodoHeaderComponent implements OnInit, OnDestroy {
         sessionStorage.removeItem('currentSelectedCategorie');
 
         // Unsubscribe Subscribtions
-      TodoHeaderComponent.updateCategorieStatus.unsubscribe();
+      this.subscribtions.forEach( subscriptions => subscriptions.unsubscribe() )
+
     }
 
     logoutUser() {
@@ -43,6 +41,11 @@ export class TodoHeaderComponent implements OnInit, OnDestroy {
     }
 
     openCreateCategorieDialog() {
-      this.dialog.open(AddCategorieDialogComponent);
+      this.dialogRefC = this.dialog.open(AddCategorieDialogComponent);
+
+      this.subscribtions.push(this.dialogRefC.afterClosed().subscribe( result => {
+        this.subscribtions.push( this.$todo.getAllTodos().subscribe() );
+        this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
+      }));
     }
 }

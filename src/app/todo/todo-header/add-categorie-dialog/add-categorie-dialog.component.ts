@@ -6,13 +6,14 @@ import {CategorieService} from '../../../categorie.service';
 import {TodoService} from '../../todo.service';
 import {TodoHeaderComponent} from '../todo-header.component';
 import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-categorie-dialog',
   templateUrl: './add-categorie-dialog.component.html',
   styleUrls: ['./add-categorie-dialog.component.scss']
 })
-export class AddCategorieDialogComponent implements OnInit, OnDestroy{
+export class AddCategorieDialogComponent implements OnInit, OnDestroy {
 
   // VARIABLES
   formControl = this.createForm();
@@ -28,23 +29,23 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy{
   ngOnInit() {
   }
 
-  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, public $todo: TodoService ) {}
+  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService) { }
 
   // CREATES CATEGORIE
   // - sets sessionStorage for new Categorie
   // - sets Header in TodoHeader
   // - closes the Dialog
   createCategorie() {
-    sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
-    this.categorie = {
-      text: this.formControl.value.categorie
-    };
+    if ( this.formControl.value.categorie ){
+      sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
+      this.categorie = {
+        text: this.formControl.value.categorie
+      };
 
-    this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe(data => {
-      TodoHeaderComponent.updateCategorieStatus.next(data.toString());
-    }));
+      this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe() );
 
-    this.dialogRef.close(this.formControl.value.categorie);
+      this.dialogRef.close(this.formControl.value.categorie);
+    }
   }
 
   // SETS SESSIONSTORAGE AFTER SELECT
@@ -53,12 +54,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy{
   setCategorieSessionStorage(data) {
     this.selectedCategorie = data;
     sessionStorage.setItem('currentSelectedCategorie', data);
-
-    this.subscriptons.push(this.$todo.getAllTodos().subscribe(data => {
-      TodoHeaderComponent.updateCategorieStatus.next(data.toString());
-    }));
-
-    this.dialogRef.close();
+    this.dialogRef.close( this.selectedCategorie );
   }
 
   // DELETES CURRENT CATEGORIE
@@ -66,9 +62,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy{
   // Todo - After deletion of Categorie it should chanage to an existing one
   deleteCurrentCategorie( categorie: Categorie) {
     sessionStorage.removeItem('currentSelectedCategorie');
-    this.subscriptons.push(this.$categorie.deleteCategorieById( categorie ).subscribe(data => {
-      TodoHeaderComponent.updateCategorieStatus.next(this.$categorie.categories$.value.toString());
-    }));
+    this.subscriptons.push(this.$categorie.deleteCategorieById( categorie ).subscribe());
   }
 
   createForm(): FormGroup {

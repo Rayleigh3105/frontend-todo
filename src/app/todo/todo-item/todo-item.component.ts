@@ -4,6 +4,10 @@ import {Todo} from '../todo';
 import {FormControl, FormGroup,} from '@angular/forms';
 import {CategorieService} from '../../categorie.service';
 import {Subscription} from 'rxjs/Subscription';
+import {AddCategorieDialogComponent} from '../todo-header/add-categorie-dialog/add-categorie-dialog.component';
+import {UserLoginService} from '../../login/user-login.service';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-todo-item',
@@ -16,11 +20,17 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   todoToCreate: Todo;
 
   formControl = this.createForm();
+  selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
   categorieExists: boolean;
   private subscriptons: Subscription[] = [];
+  dialogRefC: MatDialogRef<AddCategorieDialogComponent>;
+
 
   // Lifecyclehooks
   ngOnDestroy() {
+    sessionStorage.removeItem('x-auth');
+    sessionStorage.removeItem('currentSelectedCategorie');
+
     // Unsubscribe all Subscribtion´s on Destroy
     this.subscriptons.forEach( subscription => subscription.unsubscribe() );
   }
@@ -30,7 +40,7 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
 
   // CONSTRUCTOR
-  constructor(public $todo: TodoService, public $categorie: CategorieService) {
+  constructor(public $todo: TodoService, public $categorie: CategorieService, private $user: UserLoginService,private router: Router, public dialog: MatDialog) {
     this.checkIfDisabled();
     this.subscriptons.push(this.$categorie.getAllCategories().subscribe()) ;
   }
@@ -46,6 +56,22 @@ export class TodoItemComponent implements OnInit, OnDestroy {
       this.formControl.enable();
       this.categorieExists = false;
     }
+  }
+
+
+  logoutUser() {
+    this.$user.logoutUser();
+    this.router.navigate(['/login']);
+  }
+
+  openCreateCategorieDialog() {
+    this.dialogRefC = this.dialog.open(AddCategorieDialogComponent);
+
+    this.subscriptons.push(this.dialogRefC.afterClosed().subscribe( result => {
+      this.checkIfDisabled();
+      this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
+      this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
+    }));
   }
 
   // CREATE
