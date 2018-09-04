@@ -2,12 +2,12 @@ import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {TodoService} from '../todo.service';
 import {Todo} from '../todo';
 import {FormControl, FormGroup,} from '@angular/forms';
-import {CategorieService} from '../../categorie.service';
 import {Subscription} from 'rxjs/Subscription';
 import {AddCategorieDialogComponent} from '../todo-header/add-categorie-dialog/add-categorie-dialog.component';
 import {UserLoginService} from '../../login/user-login.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {Router} from '@angular/router';
+import {PlatformLocation} from '@angular/common';
 
 @Component({
   selector: 'app-todo-item',
@@ -43,10 +43,13 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
 
   // CONSTRUCTOR
-  constructor(public $todo: TodoService, private $user: UserLoginService,private router: Router, public dialog: MatDialog) {
+  constructor(public $todo: TodoService, private $user: UserLoginService,private router: Router, public dialog: MatDialog, location: PlatformLocation) {
+    location.onPopState( () => {
+      this.subscriptons.push( this.$user.logoutUser().subscribe() );
+      this.router.navigate(['/login']);
+    })
 
   }
-
   // METHODS
 
   // Checks if Categorie is safed in Session Storage
