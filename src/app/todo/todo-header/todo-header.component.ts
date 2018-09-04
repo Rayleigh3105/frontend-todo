@@ -20,19 +20,21 @@ export class TodoHeaderComponent implements OnInit, OnDestroy {
   categorie: Categorie;
   selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
 
-  constructor( private $user: UserLoginService, private router: Router, public dialog: MatDialog,) {
-    TodoHeaderComponent.updateCategorieStatus.subscribe(res => {
-      this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
-      this.com1ref;
-    })
-  }
+  constructor( private $user: UserLoginService, private router: Router, public dialog: MatDialog ) {}
 
     ngOnInit() {
+      TodoHeaderComponent.updateCategorieStatus.subscribe(res => {
+        this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
+        this.com1ref;
+      })
     }
 
     ngOnDestroy() {
         sessionStorage.removeItem('x-auth');
         sessionStorage.removeItem('currentSelectedCategorie');
+
+        // Unsubscribe Subscribtions
+      TodoHeaderComponent.updateCategorieStatus.unsubscribe();
     }
 
     logoutUser() {
