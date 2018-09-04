@@ -30,11 +30,13 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10" *ngIf="todoExists">
-                    <div *ngFor="let todo of $todo.todos$ | async"  class="todoBox">
+                    <div *ngFor="let todo of $todo.todos$ | async" class="todoBox">
                         <div id="wrapper-todo">
                             <div class="todo-text-container" matTooltip="{{ todo.text }}" matTooltipPosition="left"
                                  *ngIf="!todo.completed">
-                                <span id="todo-text">{{ todo.text }}</span>
+                                <form [formGroup]="formTodoInput" #todoForm="ngForm" (ngSubmit)="updateTodo( todo )">
+                                    <span id="todo-text"><input class="input-update-todo" formControlName="todoInput" type="text" [value]="todo.text"></span>
+                                </form>
                             </div>
 
                             <div class="todo-text-container" matTooltip="Todo completed: {{ todo.completedAt }}"

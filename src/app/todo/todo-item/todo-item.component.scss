@@ -89,6 +89,13 @@
     width: 100%;
   }
 
+  .input-update-todo {
+    border: 0;
+  }
+  .input-update-todo:focus{
+    outline: none;
+  }
+
   .hr-text {
     line-height: 1em;
     position: relative;

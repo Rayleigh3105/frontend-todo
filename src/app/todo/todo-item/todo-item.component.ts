@@ -18,8 +18,8 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
   // VARIABLES
   todoToCreate: Todo;
-
   formControl = this.createForm();
+  formTodoInput = this.createTodoForm();
   selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
   categorieExists: boolean;
   todoExists: boolean = false;
@@ -87,12 +87,17 @@ export class TodoItemComponent implements OnInit, OnDestroy {
     };
     this.todoExists = true;
     this.formControl.value.text = '';
-    this.subscriptons.push( this.$todo.createTodo(this.todoToCreate).subscribe() ) ;
+    this.subscriptons.push( this.$todo.createTodo( this.todoToCreate ).subscribe() ) ;
   }
 
   // DELETE
   deleteTodo( todo : Todo ) {
     this.subscriptons.push( this.$todo.deleteTodoById( todo ).subscribe() );
+  }
+  // UPDATE TEXT
+  updateTodo( todo: Todo ){
+    todo.text = this.formTodoInput.value.todoInput;
+    this.subscriptons.push( this.$todo.updateTodo( todo ).subscribe() )
   }
 
   // UPDATE
@@ -103,6 +108,13 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   createForm(): FormGroup {
     return new FormGroup({
       text: new FormControl()
+    });
+
+  }
+
+  createTodoForm(): FormGroup {
+    return new FormGroup({
+      todoInput: new FormControl()
     });
 
   }
