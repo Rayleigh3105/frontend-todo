@@ -11,9 +11,13 @@
 .padding-top-little {
   padding-top: 1.6%;
 }
-.flexbox {
+.flexbox-column {
   display: flex;
   flex-direction: column;
+}
+
+.flexbox {
+  display: flex;
 }
 
 .padding-top-middle {

@@ -7,13 +7,16 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-icon-button color="warn" class="mat-button" matTooltip="Delete current categorie" (click)="deleteCurrentCategorie(categorie)">
-        <mat-icon aria-label="Example icon-button">delete</mat-icon>
-    </button>
+    <div matTooltip="Delete current categorie">
+        <button mat-icon-button class="mat-button" (click)="deleteCurrentCategorie(categorie)" matTooltipClass="example-tooltip-red">
+            <mat-icon aria-label="Example icon-button">delete</mat-icon>
+        </button>
+    </div>
 
     <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
           (ngSubmit)="createCategorie();formControl.reset()">
         <input formControlName="categorie" class="form-control mr-sm-2 input-categorie" type="text"
-               aria-label="Create new Categorie" pattern="[A-Za-z0-9]{1,50}" placeholder="Create categorie" autofocus required>
+               aria-label="Create new Categorie" pattern="[A-Za-z0-9]{1,50}" placeholder="Create categorie" autofocus
+               required>
     </form>
 </div>

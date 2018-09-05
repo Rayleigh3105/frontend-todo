@@ -11,7 +11,15 @@ import { LoginComponent } from './login/login.component';
 import {UserLoginService} from "./login/user-login.service";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatDialog, MatDialogModule, MatIconModule, MatOptionModule, MatSelectModule, MatTabsModule} from '@angular/material';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatIconModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatTabsModule,
+  MatTooltipModule
+} from '@angular/material';
 import {AddCategorieDialogComponent} from './todo/todo-header/add-categorie-dialog/add-categorie-dialog.component';
 
 
@@ -34,6 +42,7 @@ import {AddCategorieDialogComponent} from './todo/todo-header/add-categorie-dial
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    MatTooltipModule
     FormsModule,
 
 

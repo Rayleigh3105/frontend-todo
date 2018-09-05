@@ -49,8 +49,10 @@ export class TodoItemComponent implements OnInit, OnDestroy {
     location.onPopState( () => {
       this.subscriptons.push( this.$user.logoutUser().subscribe() );
       this.router.navigate(['/login']);
-    })
-
+    });
+    window.onbeforeunload = function () {
+      sessionStorage.removeItem('currentSelectedCategorie');
+    }
   }
   // METHODS
 
@@ -116,14 +118,11 @@ export class TodoItemComponent implements OnInit, OnDestroy {
     return new FormGroup({
       text: new FormControl()
     });
-
   }
 
   createTodoForm(): FormGroup {
     return new FormGroup({
       todoInput: new FormControl()
     });
-
   }
-
 }

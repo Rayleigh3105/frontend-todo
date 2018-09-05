@@ -67,6 +67,13 @@ export class TodoService {
           )
     }
 
+    deleteTodosWithCategorie(): Observable<Todo[]> {
+    return this.$http.delete<Todo[]>( this.todoEndPoint + "/categorie", this.updateXAuthfromSessionStorage() )
+      .pipe(
+        tap()
+      )
+    }
+
     updateXAuthfromSessionStorage() {
         let headers = {
             'x-categorie': sessionStorage.getItem('currentSelectedCategorie'),

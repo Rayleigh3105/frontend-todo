@@ -32,7 +32,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
 
   }
 
-  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService) {}
+  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService) {}
 
   // CREATES CATEGORIE
   // - sets sessionStorage for new Categorie
@@ -65,8 +65,13 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   // Todo - After deletion of Categorie it should chanage to an existing one
   deleteCurrentCategorie( ) {
     this.subscriptons.push(this.$categorie.deleteCategorieById( ).subscribe( () => {
+    }));
+
+    this.subscriptons.push( this.$todo.deleteTodosWithCategorie().subscribe( () => {
       this.dialogRef.close();
     }));
+
+    this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
   }
 
   createForm(): FormGroup {

@@ -53,7 +53,7 @@ export class CategorieService {
         tap( ( ) => {
           this.categorie = {
             text: sessionStorage.getItem('currentSelectedCategorie')
-          }
+          };
           const categorieList = [ ... this.categories$.getValue() ];
           const index = categorieList.indexOf( this.categorie );
           if ( index !== -1 ){
@@ -65,19 +65,6 @@ export class CategorieService {
       )
   }
 
-  updateCategorieById( categorie: Categorie ): Observable<Categorie> {
-    return this.$http.patch<Categorie>( `${this.categorieEndpoint}/${categorie._id}`,categorie, this.updateXAuthfromSessionStorage() )
-      .pipe(
-        tap( ( categorieDB ) => {
-          const categorieList = [ ... this.categories$.getValue() ];
-          let index = categorieList.indexOf( categorie );
-          if ( index !== -1 ){
-            categorieList[index] = categorieDB;
-          }
-          this.categories$.next( categorieList );
-        })
-      )
-  }
 
   updateXAuthfromSessionStorage() {
     let headers = {

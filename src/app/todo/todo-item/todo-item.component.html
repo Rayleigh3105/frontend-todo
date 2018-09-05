@@ -3,8 +3,8 @@
     <button mat-icon-button matTooltip="Select/Create Categorie" (click)="openCreateCategorieDialog()">
         <mat-icon aria-label="Example icon-button with a heart icon">apps</mat-icon>
     </button>
-    <div class="flexContainer1" >
-        <div >
+    <div class="flexContainer1">
+        <div>
             <img src="./../../../assets/user.svg" alt="User" id="mv_svg_user" (click)="openUserInformation()">
         </div>
     </div>
@@ -19,10 +19,10 @@
             <div class="sticky">
                 <div class="flexContainer" *ngIf="selectedCategorie">
                     <div matTooltip="Categorie" matTooltipPosition="left">
-                        <mat-icon class="categorie-icon" >layers</mat-icon>
+                        <mat-icon class="categorie-icon">layers</mat-icon>
                     </div>
                     <div id="selectedCategorie">
-                        <span>{{ selectedCategorie }}</span>
+                       {{ selectedCategorie }}
                     </div>
                 </div>
                 <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
