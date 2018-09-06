@@ -25,11 +25,11 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   // LIFECYCLEHOOKS
   ngOnDestroy() {
     this.subscriptons.forEach( subscriptions => subscriptions.unsubscribe() );
+    this.dialogRef.close()
   }
 
   ngOnInit() {
     this.subscriptons.push( this.$categorie.getAllCategories().subscribe( ));
-
   }
 
   constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService) {}
@@ -62,7 +62,6 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
 
   // DELETES CURRENT CATEGORIE
   // - in DB and sessionStorage
-  // Todo - After deletion of Categorie it should chanage to an existing one
   deleteCurrentCategorie( ) {
     this.subscriptons.push(this.$categorie.deleteCategorieById( ).subscribe( () => {
     }));

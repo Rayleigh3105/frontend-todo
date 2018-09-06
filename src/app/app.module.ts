@@ -42,7 +42,7 @@ import {AddCategorieDialogComponent} from './todo/todo-header/add-categorie-dial
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
     FormsModule,
 
 

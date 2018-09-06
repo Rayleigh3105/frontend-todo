@@ -69,9 +69,6 @@ export class TodoService {
 
     deleteTodosWithCategorie(): Observable<Todo[]> {
     return this.$http.delete<Todo[]>( this.todoEndPoint + "/categorie", this.updateXAuthfromSessionStorage() )
-      .pipe(
-        tap()
-      )
     }
 
     updateXAuthfromSessionStorage() {

@@ -7,7 +7,7 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <div matTooltip="Delete current categorie">
+    <div matTooltip="Delete categorie {{ selectedCategorie }} ?">
         <button mat-icon-button class="mat-button" (click)="deleteCurrentCategorie(categorie)" matTooltipClass="example-tooltip-red">
             <mat-icon aria-label="Example icon-button">delete</mat-icon>
         </button>

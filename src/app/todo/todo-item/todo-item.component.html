@@ -28,8 +28,8 @@
                 <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
                       (ngSubmit)="createTodo();formControl.reset()">
                     <input formControlName="text"
-                           class="form-control mr-sm-2 input-todo" placeholder="Create new Todo"
-                           type="text" aria-label="Create new Todo" autofocus>
+                           class="form-control mr-sm-2 input-todo" placeholder="Create new To-Do"
+                           type="text" aria-label="Create new To-Do" autofocus>
                 </form>
                 <hr class="hr-text" data-content="Select/Create categorie first " *ngIf="categorieExists">
             </div>
@@ -51,7 +51,7 @@
                                 </form>
                             </div>
 
-                            <div class="todo-text-container" matTooltip="Todo completed: {{ todo.completedAt }}"
+                            <div class="todo-text-container" matTooltip="To-Do completed: {{ todo.completedAt }}"
                                  matTooltipPosition="left" *ngIf="todo.completed">
                                 <span id="todo-text-completed">{{ todo.text }}</span>
                             </div>
@@ -61,7 +61,7 @@
                                               [(ngModel)]="todo.completed"></mat-checkbox>
                             </div>
                             <div id="icon" (click)="deleteTodo( todo )">
-                                <mat-icon [inline]="true" matTooltip="Delete Todo" matTooltipPosition="right">
+                                <mat-icon [inline]="true" matTooltip="Delete To-Do" matTooltipPosition="right">
                                     delete_forever
                                 </mat-icon>
                             </div>
