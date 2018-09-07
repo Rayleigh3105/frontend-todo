@@ -97,7 +97,11 @@ export class TodoItemComponent implements OnInit, OnDestroy {
     };
     this.todoExists = true;
     this.formControl.value.text = '';
-    this.subscriptons.push( this.$todo.createTodo( this.todoToCreate ).subscribe() ) ;
+    try {
+        this.subscriptons.push( this.$todo.createTodo( this.todoToCreate ).subscribe() ) ;
+    } catch (e) {
+        console.log( e )
+    }
   }
 
   // DELETE
