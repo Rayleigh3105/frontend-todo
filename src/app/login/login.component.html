@@ -1,8 +1,8 @@
 <div id="wrapper">
     <div class="container-fluid loginContainer">
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
                 <div class="form-wrapper text-center">
                     <div class="text-center ">
                         <img src="./../../assets/mv.jpg" alt="Moritz Vogt" id="mv_img_login"
@@ -16,7 +16,7 @@
                                 <input formControlName="email" class="form-control mr-sm-2" placeholder="Email"
                                        type="text" aria-label="Create new Todo" required autofocus>
                                 <input formControlName="password" class="form-control mr-sm-2app"
-                                       placeholder="Password" type="text" aria-label="Create new Todo" required>
+                                       placeholder="Password" type="password" aria-label="Create new Todo" required>
                                 <div class="position-center">
                                     <button class="btn btn-primary" type="submit"
                                             [disabled]="form.invalid">SignIn
@@ -30,7 +30,7 @@
                                 <input formControlName="email" class="form-control mr-sm-2" placeholder="Email"
                                        type="text" aria-label="Create new Todo">
                                 <input formControlName="password" class="form-control mr-sm-2" placeholder="Password"
-                                       type="text" aria-label="Create new Todo">
+                                       type="password" aria-label="Create new Todo">
                                 <div class="position-center">
                                     <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
                                         Login
@@ -41,7 +41,7 @@
                     </mat-tab-group>
                 </div>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-3"></div>
         </div>
     </div>
 </div>
@@ -51,9 +51,6 @@
     <div class="container flexbox">
         <div>
             <span class="text-muted">&copy; 2018 Moritz Vogt</span>
-        </div>
-        <div id="mv-footer-right-grow">
-            <span class="text-muted"><a href="https://modev.net/about/">About</a></span>
         </div>
 
     </div>

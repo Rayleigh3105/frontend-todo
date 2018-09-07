@@ -36,9 +36,7 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
     // Unsubscribe all Subscribtion´s on Destroy
     this.subscriptons.forEach( subscription => subscription.unsubscribe() );
-    // Close all Dialogs
-    this.dialogRefAddCategorie.close();
-    this.dialogRefUserInfo.close()
+
   }
 
   ngOnInit() {
