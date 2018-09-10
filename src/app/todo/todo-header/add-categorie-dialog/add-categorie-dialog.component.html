@@ -1,13 +1,13 @@
 <div class="text-center">
     <h1 mat-dialog-title>Select/Create categorie</h1>
-    <mat-form-field>
+    <mat-form-field >
         <mat-select (selectionChange)="setCategorieSessionStorage($event.value)" placeholder="Select Categorie">
             <mat-option *ngFor="let categorie of $categorie.categories$ | async" [value]="categorie.text">
                 {{categorie.text}}
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <div matTooltip="Delete categorie {{ selectedCategorie }} ?">
+    <div matTooltip="Delete categorie {{ selectedCategorie }} ?" *ngIf="selectedCategorie">
         <button mat-icon-button class="mat-button" (click)="deleteCurrentCategorie(categorie)" matTooltipClass="example-tooltip-red">
             <mat-icon aria-label="Example icon-button">delete</mat-icon>
         </button>

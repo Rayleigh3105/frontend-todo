@@ -19,6 +19,10 @@
 .flexbox {
   display: flex;
 }
+.flexbox-center {
+  display: flex;
+  justify-content: center;
+}
 
 .padding-top-middle {
   padding-top: 7%;

@@ -1,0 +1,13 @@
+<p>
+  Are you sure you want to delete categorie {{ selectedCategorie }}?
+</p>
+<hr>
+<div class="flexbox-center">
+  <div id="delete-categorie-cancel-button">
+    <button type="button" class="btn btn-light" (click)="dialogRef.close()">Cancel</button>
+  </div>
+  <div>
+    <button type="button" class="btn btn-danger"  (click)="deleteCategorie()">Delete</button>
+  </div>
+</div>
+

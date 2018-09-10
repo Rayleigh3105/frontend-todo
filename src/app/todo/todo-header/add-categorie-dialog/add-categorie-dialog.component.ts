@@ -1,10 +1,11 @@
 import {Component,  OnDestroy, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Categorie} from '../../../categorie';
 import {CategorieService} from '../../../categorie.service';
 import {TodoService} from '../../todo.service';
 import {Subscription} from 'rxjs/Subscription';
+import {DeleteCategorieConfirmDialogComponent} from '../../../delete-categorie-confirm-dialog/delete-categorie-confirm-dialog.component';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   formControl = this.createForm();
   categorie: Categorie;
   selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
+  dialogRefDeleteCategorie: MatDialogRef<DeleteCategorieConfirmDialogComponent>;
   private subscriptons: Subscription[] = [];
 
   // LIFECYCLEHOOKS
@@ -30,7 +32,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
     this.subscriptons.push( this.$categorie.getAllCategories().subscribe( ));
   }
 
-  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService ) {}
+  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService , public dialog: MatDialog) {}
 
   // CREATES CATEGORIE
   // - sets sessionStorage for new Categorie
@@ -39,7 +41,6 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   createCategorie() {
 
     if ( this.formControl.value.categorie ){
-        if ( !sessionStorage.getItem('currentSelectedCategorie') === this.formControl.value.categorie) {
             sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
             this.categorie = {
                 text: this.formControl.value.categorie
@@ -48,9 +49,6 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
             this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe() );
 
             this.dialogRef.close(this.formControl.value.categorie);
-        } else {
-            // Open Error Dialog same categorie
-        }
     }
   }
 
@@ -66,14 +64,23 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   // DELETES CURRENT CATEGORIE
   // - in DB and sessionStorage
   deleteCurrentCategorie( ) {
-    this.subscriptons.push(this.$categorie.deleteCategorieById( ).subscribe( () => {
-    }));
+    if (this.selectedCategorie) {
+      this.dialogRefDeleteCategorie = this.dialog.open(DeleteCategorieConfirmDialogComponent);
 
-    this.subscriptons.push( this.$todo.deleteTodosWithCategorie().subscribe( () => {
-      this.dialogRef.close();
-    }));
+      this.dialogRefDeleteCategorie.afterClosed().subscribe( result => {
+        if ( result ) {
+          this.subscriptons.push(this.$categorie.deleteCategorieById( ).subscribe( () => {
+          }));
 
-    this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
+          this.subscriptons.push( this.$todo.deleteTodosWithCategorie().subscribe( () => {
+            this.dialogRef.close();
+          }));
+
+          this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
+        }
+      });
+    }
+
   }
 
   createForm(): FormGroup {
