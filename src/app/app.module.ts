@@ -22,6 +22,7 @@ import {
 } from '@angular/material';
 import {AddCategorieDialogComponent} from './todo/todo-header/add-categorie-dialog/add-categorie-dialog.component';
 import { DeleteCategorieConfirmDialogComponent } from './delete-categorie-confirm-dialog/delete-categorie-confirm-dialog.component';
+import { WarningLogInDialogComponent } from './warning-log-in-dialog/warning-log-in-dialog.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { DeleteCategorieConfirmDialogComponent } from './delete-categorie-confir
     LoginComponent,
     AddCategorieDialogComponent,
     DeleteCategorieConfirmDialogComponent,
+    WarningLogInDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { DeleteCategorieConfirmDialogComponent } from './delete-categorie-confir
 
 
   ],
-  entryComponents: [AddCategorieDialogComponent, DeleteCategorieConfirmDialogComponent],
+  entryComponents: [AddCategorieDialogComponent, DeleteCategorieConfirmDialogComponent, WarningLogInDialogComponent],
   providers: [ UserLoginService, MatDialog ],
   bootstrap: [AppComponent],
   exports:[ HttpClientModule ]

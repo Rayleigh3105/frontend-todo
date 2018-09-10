@@ -9,6 +9,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {Router} from '@angular/router';
 import {PlatformLocation} from '@angular/common';
 import {UserInformationComponent} from '../../user-information/user-information.component';
+import {WarningLogInDialogComponent} from '../../warning-log-in-dialog/warning-log-in-dialog.component';
 
 
 @Component({
@@ -26,15 +27,14 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   categorieExists: boolean;
   todoExists: boolean = false;
   private subscriptons: Subscription[] = [];
+  dialogRefWarnLogout: MatDialogRef<WarningLogInDialogComponent>;
   dialogRefAddCategorie: MatDialogRef<AddCategorieDialogComponent>;
   dialogRefUserInfo: MatDialogRef<UserInformationComponent>;
 
 
   // Lifecyclehooks
   ngOnDestroy() {
-    sessionStorage.removeItem('x-auth');
-    sessionStorage.removeItem('currentSelectedCategorie');
-
+    this.removeSessionStorage();
     // Unsubscribe all Subscribtion´s on Destroy
     this.subscriptons.forEach( subscription => subscription.unsubscribe() );
 
@@ -49,11 +49,13 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   // CONSTRUCTOR
   constructor(public $todo: TodoService, private $user: UserLoginService,private router: Router, public dialog: MatDialog, location: PlatformLocation) {
     location.onPopState( () => {
+      this.removeSessionStorage();
+
       this.subscriptons.push( this.$user.logoutUser().subscribe() );
       this.router.navigate(['/login']);
     });
-    window.onbeforeunload = function () {
-      sessionStorage.removeItem('currentSelectedCategorie');
+    window.onbeforeunload =  () => {
+      this.removeSessionStorage();
     }
   }
   // METHODS
@@ -75,34 +77,64 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   }
 
   openCreateCategorieDialog() {
-    this.dialogRefAddCategorie = this.dialog.open(AddCategorieDialogComponent);
+    if (sessionStorage.getItem('x-auth')) {
+      this.dialogRefAddCategorie = this.dialog.open(AddCategorieDialogComponent);
 
-    this.subscriptons.push(this.dialogRefAddCategorie.afterClosed().subscribe(result => {
-      this.checkIfDisabled();
-      this.todoExists = true;
-      this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
-      this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
-    }));
+      this.subscriptons.push(this.dialogRefAddCategorie.afterClosed().subscribe(result => {
+        this.checkIfDisabled();
+        this.todoExists = true;
+        this.subscriptons.push( this.$todo.getAllTodos().subscribe() );
+        this.selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
+      }));
+    } else {
+      this.openLogOutConfirmDialog();
+    }
+
   }
 
   openUserInformation() {
-    this.dialogRefUserInfo = this.dialog.open(UserInformationComponent);
+    if ( sessionStorage.getItem('x-auth')){
+      this.dialogRefUserInfo = this.dialog.open( UserInformationComponent );
+    } else {
+      this.openLogOutConfirmDialog();
+    }
+
   }
 
+  openLogOutConfirmDialog() {
+    this.dialogRefWarnLogout = this.dialog.open( WarningLogInDialogComponent );
+
+    this.dialogRefWarnLogout.afterClosed().subscribe( login => {
+      if ( login ) {
+        this.logoutUser()
+      }
+    })
+  }
+
+  removeSessionStorage() {
+    sessionStorage.removeItem('x-auth');
+    sessionStorage.removeItem('currentSelectedCategorie');
+    sessionStorage.removeItem('currentUserName');
+  }
 
   // CREATE
   createTodo() {
-          this.todoToCreate = {
-              text: this.formControl.value.text,
-              categorie: sessionStorage.getItem('currentSelectedCategorie')
-          };
-          this.todoExists = true;
-          this.formControl.value.text = '';
-          try {
-              this.subscriptons.push( this.$todo.createTodo( this.todoToCreate ).subscribe() ) ;
-          } catch (e) {
-              console.log( e )
-          }
+    if ( sessionStorage.getItem('x-auth')){
+      this.todoToCreate = {
+        text: this.formControl.value.text,
+        categorie: sessionStorage.getItem('currentSelectedCategorie')
+      };
+      this.todoExists = true;
+      this.formControl.value.text = '';
+      try {
+
+        this.subscriptons.push( this.$todo.createTodo( this.todoToCreate ).subscribe() ) ;
+      } catch (e) {
+        console.log( e )
+      }
+    } else {
+      console.log('Please Log in ')
+    }
   }
 
   // DELETE

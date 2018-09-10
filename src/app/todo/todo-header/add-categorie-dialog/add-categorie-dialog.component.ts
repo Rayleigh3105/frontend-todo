@@ -20,6 +20,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   categorie: Categorie;
   selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
   dialogRefDeleteCategorie: MatDialogRef<DeleteCategorieConfirmDialogComponent>;
+
   private subscriptons: Subscription[] = [];
 
   // LIFECYCLEHOOKS
@@ -39,26 +40,36 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   // - sets Header in TodoHeader
   // - closes the Dialog
   createCategorie() {
+    if ( sessionStorage.getItem('x-auth')){
+      if ( this.formControl.value.categorie ){
+        sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
+        this.categorie = {
+          text: this.formControl.value.categorie
+        };
 
-    if ( this.formControl.value.categorie ){
-            sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
-            this.categorie = {
-                text: this.formControl.value.categorie
-            };
+        this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe() );
 
-            this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe() );
-
-            this.dialogRef.close(this.formControl.value.categorie);
+        this.dialogRef.close(this.formControl.value.categorie);
+      }
+    } else {
+      console.log('Please Login')
     }
+
+
   }
 
   // SETS SESSIONSTORAGE AFTER SELECT
   // - closes the dialog
   // - gets todos for selected categorie
   setCategorieSessionStorage(data) {
-    this.selectedCategorie = data;
-    sessionStorage.setItem('currentSelectedCategorie', data);
-    this.dialogRef.close( this.selectedCategorie );
+    if ( sessionStorage.getItem('x-auth')){
+
+      this.selectedCategorie = data;
+      sessionStorage.setItem('currentSelectedCategorie', data);
+      this.dialogRef.close( this.selectedCategorie );
+    } else {
+      console.log('Please Login')
+    }
   }
 
   // DELETES CURRENT CATEGORIE
@@ -80,7 +91,6 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
         }
       });
     }
-
   }
 
   createForm(): FormGroup {
