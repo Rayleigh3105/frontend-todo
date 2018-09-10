@@ -1,12 +1,11 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {MatDialogRef, MatSnackBar} from '@angular/material';
+import {Component,  OnDestroy, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Categorie} from '../../../categorie';
 import {CategorieService} from '../../../categorie.service';
 import {TodoService} from '../../todo.service';
 import {Subscription} from 'rxjs/Subscription';
-import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-add-categorie-dialog',
@@ -31,7 +30,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
     this.subscriptons.push( this.$categorie.getAllCategories().subscribe( ));
   }
 
-  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService, public snackBar: MatSnackBar) {}
+  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService ) {}
 
   // CREATES CATEGORIE
   // - sets sessionStorage for new Categorie
