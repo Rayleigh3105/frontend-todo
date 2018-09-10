@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {PlatformLocation} from '@angular/common';
 import {UserInformationComponent} from '../../user-information/user-information.component';
 
+
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
@@ -91,17 +92,17 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
   // CREATE
   createTodo() {
-    this.todoToCreate = {
-      text: this.formControl.value.text,
-      categorie: sessionStorage.getItem('currentSelectedCategorie')
-    };
-    this.todoExists = true;
-    this.formControl.value.text = '';
-    try {
-        this.subscriptons.push( this.$todo.createTodo( this.todoToCreate ).subscribe() ) ;
-    } catch (e) {
-        console.log( e )
-    }
+          this.todoToCreate = {
+              text: this.formControl.value.text,
+              categorie: sessionStorage.getItem('currentSelectedCategorie')
+          };
+          this.todoExists = true;
+          this.formControl.value.text = '';
+          try {
+              this.subscriptons.push( this.$todo.createTodo( this.todoToCreate ).subscribe() ) ;
+          } catch (e) {
+              console.log( e )
+          }
   }
 
   // DELETE

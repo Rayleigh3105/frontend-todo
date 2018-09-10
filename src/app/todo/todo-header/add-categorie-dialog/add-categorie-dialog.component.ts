@@ -1,10 +1,9 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Categorie} from '../../../categorie';
 import {CategorieService} from '../../../categorie.service';
 import {TodoService} from '../../todo.service';
-import {TodoHeaderComponent} from '../todo-header.component';
 import {Subscription} from 'rxjs/Subscription';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -25,29 +24,34 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   // LIFECYCLEHOOKS
   ngOnDestroy() {
     this.subscriptons.forEach( subscriptions => subscriptions.unsubscribe() );
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 
   ngOnInit() {
     this.subscriptons.push( this.$categorie.getAllCategories().subscribe( ));
   }
 
-  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService) {}
+  constructor( public dialogRef: MatDialogRef<AddCategorieDialogComponent>,  public $categorie: CategorieService, private $todo: TodoService, public snackBar: MatSnackBar) {}
 
   // CREATES CATEGORIE
   // - sets sessionStorage for new Categorie
   // - sets Header in TodoHeader
   // - closes the Dialog
   createCategorie() {
+
     if ( this.formControl.value.categorie ){
-      sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
-      this.categorie = {
-        text: this.formControl.value.categorie
-      };
+        if ( !sessionStorage.getItem('currentSelectedCategorie') === this.formControl.value.categorie) {
+            sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
+            this.categorie = {
+                text: this.formControl.value.categorie
+            };
 
-      this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe() );
+            this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe() );
 
-      this.dialogRef.close(this.formControl.value.categorie);
+            this.dialogRef.close(this.formControl.value.categorie);
+        } else {
+            // Open Error Dialog same categorie
+        }
     }
   }
 
