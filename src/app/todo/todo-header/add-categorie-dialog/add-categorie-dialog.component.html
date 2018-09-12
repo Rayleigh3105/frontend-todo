@@ -13,10 +13,14 @@
         </button>
     </div>
 
-    <form class="form-inline my-2 my-lg-0 create-todo-form" [formGroup]="formControl" #form="ngForm"
+    <form class="form-inline my-2 my-lg-0 " [formGroup]="formControl" #form="ngForm"
           (ngSubmit)="createCategorie();formControl.reset()">
         <input formControlName="categorie" class="form-control mr-sm-2 input-categorie" type="text"
                aria-label="Create new Categorie" pattern="[A-Za-z0-9]{1,50}" placeholder="Create categorie" autofocus
                required>
     </form>
+    <div class="categorie-error-div">
+        <span class="categorie-error" *ngIf="errorCategorie">{{ errorCategorie }}</span>
+    </div>
+
 </div>

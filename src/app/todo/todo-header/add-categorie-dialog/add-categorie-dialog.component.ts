@@ -20,6 +20,7 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   categorie: Categorie;
   selectedCategorie = sessionStorage.getItem('currentSelectedCategorie');
   dialogRefDeleteCategorie: MatDialogRef<DeleteCategorieConfirmDialogComponent>;
+  errorCategorie: string;
 
   private subscriptons: Subscription[] = [];
 
@@ -42,20 +43,38 @@ export class AddCategorieDialogComponent implements OnInit, OnDestroy {
   createCategorie() {
     if ( sessionStorage.getItem('x-auth')){
       if ( this.formControl.value.categorie ){
-        sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
-        this.categorie = {
-          text: this.formControl.value.categorie
-        };
-
-        this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe() );
-
-        this.dialogRef.close(this.formControl.value.categorie);
+          if ( this.$categorie.categories$.getValue().length < 1) {
+              this.createSureCategorie()
+          } else {
+              for (let categorieItr of this.$categorie.categories$.getValue()) {
+                  if ( categorieItr.text === this.formControl.value.categorie) {
+                      // Categorie exist
+                      this.errorCategorie = "Can´t create categorie (categorie must be unique)"
+                  } else {
+                      this.createSureCategorie()
+                  }
+              }
+          }
       }
     } else {
       console.log('Please Login')
     }
+  }
+
+  createSureCategorie() {
+      // Created categorie does not exist
+      sessionStorage.setItem('currentSelectedCategorie', this.formControl.value.categorie);
+      this.categorie = {
+          text: this.formControl.value.categorie
+      };
+      console.log(this.$categorie.categories$.getValue())
 
 
+      this.subscriptons.push(this.$categorie.createCategorie( this.categorie ).subscribe( result => {
+          console.log( result )
+      }) );
+
+      this.dialogRef.close(this.formControl.value.categorie);
   }
 
   // SETS SESSIONSTORAGE AFTER SELECT

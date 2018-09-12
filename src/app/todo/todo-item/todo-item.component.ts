@@ -34,8 +34,8 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
   // Lifecyclehooks
   ngOnDestroy() {
-    this.removeSessionStorage();
-    // Unsubscribe all Subscribtion´s on Destroy
+      sessionStorage.removeItem('currentSelectedCategorie');
+      // Unsubscribe all Subscribtion´s on Destroy
     this.subscriptons.forEach( subscription => subscription.unsubscribe() );
 
   }
@@ -55,7 +55,8 @@ export class TodoItemComponent implements OnInit, OnDestroy {
       this.router.navigate(['/login']);
     });
     window.onbeforeunload =  () => {
-      this.removeSessionStorage();
+        sessionStorage.removeItem('currentSelectedCategorie');
+
     }
   }
   // METHODS

@@ -14,6 +14,8 @@ import {Subscription} from 'rxjs/Subscription';
 export class LoginComponent implements OnInit, OnDestroy{
   // VARIABLES
   formControl = this.createForm();
+  errorMessageSignup:string;
+  errorMessageLogin:string;
 
   user: User;
   private subscriptons: Subscription[] = [];
@@ -38,7 +40,9 @@ export class LoginComponent implements OnInit, OnDestroy{
     this.$userlogin.createUser(this.user)
       .then(() => {
         this.router.navigate(['/dashboard']);
-      });
+      }).catch( reason => {
+          this.errorMessageSignup = "SignUp error: " + reason.error;
+    });
   }
 
   // LOGIN A USER
@@ -51,7 +55,9 @@ export class LoginComponent implements OnInit, OnDestroy{
     this.$userlogin.loginUser(this.user)
       .then(() => {
         this.router.navigate(['/dashboard']);
-      });
+      }).catch( reason => {
+          this.errorMessageLogin = "LogIn error: " + reason.error;
+      });;
   }
 
   createForm(): FormGroup {

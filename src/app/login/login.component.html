@@ -13,27 +13,16 @@
 
                     </div>
                     <mat-tab-group class="mat-tab-login-signin">
-                        <mat-tab label="SignIn" class="mat-tab-label">
-                            <form class="form-inline my-2 my-lg-0 form-margin" [formGroup]="formControl" #form="ngForm"
-                                  (ngSubmit)="createUser()">
-                                <input formControlName="email" class="form-control mr-sm-2" placeholder="Email"
-                                       type="text" aria-label="Create new Todo" required autofocus>
-                                <input formControlName="password" class="form-control mr-sm-2app"
-                                       placeholder="Password" type="password" aria-label="Create new Todo" required>
-                                <div class="position-center">
-                                    <button class="btn btn-primary" type="submit"
-                                            [disabled]="form.invalid">SignIn
-                                    </button>
-                                </div>
-                            </form>
-                        </mat-tab>
                         <mat-tab label="LogIn" class="mat-tab-label">
                             <form class="form-inline my-2 my-lg-0 form-margin" [formGroup]="formControl" #form="ngForm"
                                   (ngSubmit)="loginUser()">
                                 <input formControlName="email" class="form-control mr-sm-2" placeholder="Email"
-                                       type="text" aria-label="Create new Todo">
+                                       type="text" aria-label="Create new Todo" required autofocus>
                                 <input formControlName="password" class="form-control mr-sm-2" placeholder="Password"
-                                       type="password" aria-label="Create new Todo">
+                                       type="password" aria-label="Create new Todo"  minlength="6" matTooltip="Password must be 6 characters long" required>
+                                <div class="login-signup-error-div">
+                                    <span class="login-signup-error" *ngIf="errorMessageLogin">{{ errorMessageLogin }}</span>
+                                </div>
                                 <div class="position-center">
                                     <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
                                         Login
@@ -41,7 +30,25 @@
                                 </div>
                             </form>
                         </mat-tab>
+                        <mat-tab label="SignIn" class="mat-tab-label">
+                            <form class="form-inline my-2 my-lg-0 form-margin" [formGroup]="formControl" #form="ngForm"
+                                  (ngSubmit)="createUser()">
+                                <input formControlName="email" class="form-control mr-sm-2" placeholder="Email"
+                                       type="text" aria-label="Create new Todo" id="email-input" required autofocus>
+                                <input formControlName="password" class="form-control mr-sm-2"
+                                       placeholder="Password" type="password" aria-label="Create new Todo" id="password-input" minlength="6" matTooltip="Password must be 6 characters long" required>
+                                <div class="login-signup-error-div">
+                                    <span class="login-signup-error" *ngIf="errorMessageSignup">{{ errorMessageSignup }}</span>
+                                </div>
+                                <div class="position-center">
+                                    <button class="btn btn-primary" type="submit"
+                                            [disabled]="form.invalid">SignIn
+                                    </button>
+                                </div>
+                            </form>
+                        </mat-tab>
                     </mat-tab-group>
+
                 </div>
             </div>
             <div class="col-md-3"></div>

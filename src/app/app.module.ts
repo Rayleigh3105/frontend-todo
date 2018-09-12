@@ -23,6 +23,7 @@ import {
 import {AddCategorieDialogComponent} from './todo/todo-header/add-categorie-dialog/add-categorie-dialog.component';
 import { DeleteCategorieConfirmDialogComponent } from './delete-categorie-confirm-dialog/delete-categorie-confirm-dialog.component';
 import { WarningLogInDialogComponent } from './warning-log-in-dialog/warning-log-in-dialog.component';
+import {AuthGuard} from "./auth.guard";
 
 
 @NgModule({
@@ -48,11 +49,9 @@ import { WarningLogInDialogComponent } from './warning-log-in-dialog/warning-log
     MatSelectModule,
     MatTooltipModule,
     FormsModule,
-
-
   ],
   entryComponents: [AddCategorieDialogComponent, DeleteCategorieConfirmDialogComponent, WarningLogInDialogComponent],
-  providers: [ UserLoginService, MatDialog ],
+  providers: [ UserLoginService, MatDialog, AuthGuard],
   bootstrap: [AppComponent],
   exports:[ HttpClientModule ]
 })
