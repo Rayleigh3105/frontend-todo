@@ -6,7 +6,4 @@
 export const environment = {
   production: false,
   endpoint: "http://localhost:3000/",
-  xauth: null
-  //   endpoint: "https://desolate-basin-44439.herokuapp.com/"
-
 };
