@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  endpoint: "http://localhost:3000/",
+  endpoint: "https://immense-everglades-47446.herokuapp.com/",
 };
